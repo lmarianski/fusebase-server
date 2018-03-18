@@ -3,6 +3,11 @@ module.exports = class Module {
 		this.remoteFunctions = {};
 		this.deps = [];
 		this.config = {};
+		this.name = "";
+	}
+	
+	setName(name) {
+		this.name = name;
 	}
 	
 	addRemoteFunction(name, func) {

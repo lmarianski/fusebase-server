@@ -1,16 +1,18 @@
 let Module = require('../src/server/Module.js');
 
-let ExampleModule = new Module();
+let M = new Module();
 
-ExampleModule.addDependencies("https://cdn.rawgit.com/blueimp/JavaScript-MD5/da202aebc0436c715e074525affc4e9416309fc3/js/md5.min.js");
+M.setName("ExampleModule");
 
-ExampleModule.setMainFunction(function(module, socket, config) {
+M.addDependencies("https://cdn.rawgit.com/blueimp/JavaScript-MD5/da202aebc0436c715e074525affc4e9416309fc3/js/md5.min.js");
+
+M.setMainFunction(function(module, socket, config) {
 	socket.executeFunc(module, "md5Hash", (function() {let out = []; for (let i = 0; i < 1000; i++) {out.push(Math.random())} return out})(), function(out) {
 		console.log(out);
 	});
 });
 
-ExampleModule.addRemoteFunction("md5Hash", function(args, debug) {
+M.addRemoteFunction("md5Hash", function(args, debug) {
 	let out = [];
 	
 	if (args instanceof Function) args = args();
@@ -22,4 +24,4 @@ ExampleModule.addRemoteFunction("md5Hash", function(args, debug) {
 	return out;
 });
 
-module.exports = ExampleModule;
+module.exports = M;

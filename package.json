@@ -4,8 +4,7 @@
   "description": "A C&C server made in nodejs",
   "main": "src/server/index.js",
   "scripts": {
-    "dev": "nodemon -w \"package.json\" -w \"src/server\" --exec \"genversion version.js && node src/server/index.js\"",
-    "start": "node src/server/index.js",
+    "start": "nodemon -w \"plugins/\" -w \"package.json\" -w \"src/server\" --exec \"genversion version.js && node .\"",
     "test": "cd src/client && python -m http.server"
   },
   "repository": {
@@ -17,12 +16,11 @@
   "license": "GPL-3.0",
   "dependencies": {
     "express": "^4.16.2",
+    "genversion": "^2.0.1",
+    "nodemon": "^1.17.2",
     "pug": "^2.0.0-rc.4",
     "request": "^2.83.0",
     "socket.io": "^2.0.4"
   },
-  "devDependencies": {
-    "genversion": "^2.0.1",
-	"nodemon": "^1.17.2"
-  }
+  "devDependencies": {}
 }

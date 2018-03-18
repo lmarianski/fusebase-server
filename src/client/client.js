@@ -59,12 +59,16 @@ function loadRemoteFunctionDeps(remoteFunction, callback, ii) {
 function client() {
     socket = io(nodeJsIp);
 	
-	socket.emit("postConnection", "slave");
+	socket.on("connection", function() {
+		socket.emit("postConnection", "slave");
 	
-	socket.on("executeRemoteFunction", function(remoteFunction, debug, funcName) {
-		loadRemoteFunctionDeps(remoteFunction, function() {
-			let remoteFunctionOut = eval("(" + remoteFunction.func + ")(remoteFunction.args, debug)");
-			socket.emit(funcName+"Out", remoteFunctionOut);
+		socket.on("executeRemoteFunction", function(remoteFunction, debug, funcName) {
+			loadRemoteFunctionDeps(remoteFunction, function() {
+				let remoteFunctionOut = eval("(" + remoteFunction.func + ")(remoteFunction.args, debug)");
+				socket.emit(funcName+"Out", remoteFunctionOut);
+			});
 		});
+		
 	});
+
 }

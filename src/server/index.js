@@ -8,7 +8,7 @@ let request = require('request');
 const debug = true;
 
 let Module = require('./Module.js');
-let M = require('./Modules.js');
+let Modules = require('./Modules.js');
 let ver = require('./../../version.js');
 
 let slaveCount = 0;
@@ -31,16 +31,15 @@ app.get('/clients', function(req, res) {
 });
 
 app.get('/modules', function(req, res) {
-	res.render('modules')
+	let onConnectModules = [];
+	Modules.getAllModules().forEach(function(arg) {
+		onConnectModules.push(arg.name);
+	});
+	res.render('modules', {onConnectModules: onConnectModules})
 });
 
-function executeRemoteFunction(remoteFunction, socket) {
-
-}
-		
 io.on('connection', function(socket) {
-	let address = socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
-	let ip = address.address || "localhost";
+	let ip = (socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress).address || "localhost";
 		
 	console.log('new connection from: '+ ip);
 	
@@ -67,8 +66,9 @@ io.on('connection', function(socket) {
 				slaveGeo[socket.country].pop(socket);
 				if (slaveGeo[socket.country].length == 0) slaveCountries.pop(socket.country);
 		}
-		console.log(slaveCount);		
 	});
+	
+	socket.emit("connection");
 	
 	socket.on('postConnection', function(mode) {
 		if (mode == "slave") {
@@ -82,8 +82,6 @@ io.on('connection', function(socket) {
 					socket.country = json["geoplugin_countryName"];
 					if (slaveCountries.indexOf(socket.country) == -1) slaveCountries.push(socket.country);
 				});
-				
-				M.ExampleModule.exec(socket);
 		} else {
 			socket.on('updateClientData', function() {
 				
@@ -97,7 +95,6 @@ io.on('connection', function(socket) {
 			});
 		}
 		socket.mode = mode;
-		console.log(slaveCount);
 	});
 	
 });

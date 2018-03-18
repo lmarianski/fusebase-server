@@ -68,21 +68,20 @@ nav ul li a {
 	padding-left: 40px;
 }
 
-#modules_list {
+#onConnectModulesList {
 	float: left;
-	padding-right: 70px;
+	padding-right: 20px;
 	margin-left: 10px;
 	border: 3px solid #23f132;
 }
 
-#modules_list ul {
+#onConnectModulesList ul {
 	list-style-type: none;
 	padding-left: 10px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
-#modules_list ul li {
+#onConnectModulesList ul li {
 	display: list-item;
-	padding-left: 40px;
 }

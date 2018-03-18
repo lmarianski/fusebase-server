@@ -4,9 +4,12 @@ block main
 	<div class="center">
 
 	</div>
-	<div id="modules_list">
+	<div id="onConnectModulesList">
 		<ul>
-			<li><input type="checkbox">Coinhive<li>
+			each name in onConnectModules
+				li
+					input(type="checkbox", id=name+"_onConnect")
+					= name
 		</ul>
 	</div>
 	<div style="clear: both;"></div>
