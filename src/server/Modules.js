@@ -8,9 +8,11 @@ let modules = [];
 let modulesDict = {};
 
 fs.readdirSync(pluginFolder).forEach(file => {
+
 	let module = require(pluginFolderRelative+file);
 	modules.push(module);
 	modulesDict[module.name] = module;
+
 });
 
 module.exports = {

