@@ -1,46 +1,46 @@
-google.charts.load('current', {
-	'packages':['geochart'],
+google.charts.load("current", {
+	"packages":["geochart"],
 	// Note: you will need to get a mapsApiKey for your project.
 	// See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-	'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+	"mapsApiKey": "AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY"
 });
 google.charts.setOnLoadCallback(drawRegionsMap);
 
 const options = {
-	backgroundColor: 'black',
-	colorAxis: {colors: ['red', 'green']}
+	backgroundColor: "black",
+	colorAxis: {colors: ["red", "green"]}
 };
 
 function drawRegionsMap() {
-	let chart = new google.visualization.GeoChart(document.getElementById('clients_map'));
+	let chart = new google.visualization.GeoChart(document.getElementById("clients_map"));
 	let clients_list = document.getElementById("clients_list").firstElementChild;
 	
 	setInterval(function() {
-		socket.emit('updateClientData');
+		socket.emit("updateClientData");
 	}, 1000);
 	
 	let oldData;
 	
-	socket.on('getClientsData', function(dataArray, slaveGeo) {
+	socket.on("getClientsData", function(dataArray, slaveGeo) {
 		let header = [
-			['Country', '# of Clients']
+			["Country", "# of Clients"]
 		];
 		
-		dataTable = header.concat(dataArray);
-		
+		let dataTable = header.concat(dataArray);
 		let data = google.visualization.arrayToDataTable(dataTable);
 		
 		if (oldData == null || !oldData.equals(dataTable)) {
 			chart.draw(data, options);
 			clients_list.clear();
+
 			for (let country in slaveGeo) {
 				for (let i = 0; i < slaveGeo[country].length; i++) {
-					clients_list.innerHTML += '<li class="flag '+nameIntoCode[country].toLowerCase()+'">'+slaveGeo[country][i]+'</li>'
+					clients_list.innerHTML += "<li class=\"flag "+nameIntoCode[country].toLowerCase()+"\">"+slaveGeo[country][i]+"</li>";
 				}
 			}
 		}
 		
-		oldData = dataTable
+		oldData = dataTable;
 	});
 }
 
@@ -69,7 +69,7 @@ Array.prototype.equals = function (array) {
 		}           
 	}       
 	return true;
-}
+};
 // Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
@@ -77,6 +77,6 @@ Element.prototype.clear = function() {
 	while (this.firstChild) {
 		this.removeChild(this.firstChild);
 	}
-}
+};
 
 Object.defineProperty(Element.prototype, "clear", {enumerable: false});

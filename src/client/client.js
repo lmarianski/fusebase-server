@@ -49,19 +49,22 @@ function loadScript(url, integrity, callback, callbackParams) {
 	head.appendChild(script);
 }
 
-// Script loading
-loadScript("https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js", null, function() {
-	client();
-});
-
 function loadRemoteFunctionDeps(remoteFunction, callback, ii) {
 	let i = ii || 0;
 	if (!loaded.includes(remoteFunction.deps[i].url)) {
 		loadScript(
 			remoteFunction.deps[i].url,
-			 remoteFunction.deps[i].integrity, i == remoteFunction.deps.length-1 ? function() {callback();} : loadModuleDeps, [remoteFunction, callback, i+1]);
+			remoteFunction.deps[i].integrity,
+			i == remoteFunction.deps.length-1 ? function() {callback();} : loadRemoteFunctionDeps,
+			[remoteFunction, callback, i+1]
+		);
 	}
 }
+
+// Script loading
+loadScript("https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js", null, function() {
+	client();
+});
 
 // Actual code starts here
 function client() {

@@ -4,7 +4,7 @@
   "description": "A C&C server made in nodejs",
   "main": "src/server/index.js",
   "scripts": {
-    "start": "nodemon -w \"plugins/\" -w \"src/server\" --exec \"genversion version.js && node .\"",
+    "start": "nodemon -w \"plugins/\" -w \"src/server\" -i \"src/server/control_panel\" --exec \"genversion version.js && node .\"",
     "test": "cd src/client && python -m http.server"
   },
   "repository": {
@@ -22,5 +22,11 @@
     "request": "^2.83.0",
     "socket.io": "^2.0.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
 }

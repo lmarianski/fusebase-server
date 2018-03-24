@@ -89,3 +89,6 @@ nav ul li a {
 #onConnectModulesList span {
 	margin-left: 30px;
 }
+
+.center input[value="Save"] {
+}
