@@ -85,3 +85,7 @@ nav ul li a {
 #onConnectModulesList ul li {
 	display: list-item;
 }
+
+#onConnectModulesList span {
+	margin-left: 30px;
+}

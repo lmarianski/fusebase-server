@@ -1,21 +1,21 @@
 extends template.pug
 
 block main
-	<div class="center">
-		<h1>Connected clients:</h1>
-		<div id="clients_map"></div>
-		<div id="clients_list">
-			<ul class="f32">
-			</ul>
-		</div>
-		<div style="clear: both;"></div>
-	</div>
+	div(class="center")
+		h1 Connected clients:
+
+		div(id="clients_map")
+
+		div(id="clients_list")
+			ul(class="f32")
+
+		div(style="clear: both;")
 	
 block scripts
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<script src="https://cdn.rawgit.com/lukas2005/hosting/412bed5/countries.js"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script src="js/clients.js"></script>
+	script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
+	script(src="https://cdn.rawgit.com/lukas2005/hosting/412bed5/countries.js")
+	script(src="https://www.gstatic.com/charts/loader.js")
+	script(src="js/clients.js")
 	
 block styles
-	<link rel="stylesheet" type="text/css" href="//github.com/downloads/lafeber/world-flags-sprite/flags32.css">
+	link(rel="stylesheet", href="//github.com/downloads/lafeber/world-flags-sprite/flags32.css")

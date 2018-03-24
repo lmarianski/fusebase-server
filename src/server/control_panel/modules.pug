@@ -1,16 +1,15 @@
 extends template.pug
 
 block main
-	<div class="center">
+	div(class="center")
 
-	</div>
-	<div id="onConnectModulesList">
-		<span>Auto Run Modules:</span>
-		<ul>
+	div(id="onConnectModulesList")
+		span Auto Run Modules:
+		
+		ul
 			each name in onConnectModules
 				li
 					input(type="checkbox", id=name+"_onConnect")
 					= name
-		</ul>
-	</div>
-	<div style="clear: both;"></div>
+
+	div(style="clear: both;")

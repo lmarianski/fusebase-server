@@ -42,7 +42,7 @@ app.get('/modules', function(req, res) {
 
 io.on('connection', function(socket) {
 	let ip = (socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress).address || "localhost";
-			
+
 	socket.debugExecFunc = debug;
 	socket.executeFunc = function(module, funcName, args, callback) {
 		let finalObj = {};
@@ -84,12 +84,15 @@ io.on('connection', function(socket) {
 				request('http://www.geoplugin.net/json.gp?ip='+ip, function (error, response, body) {
 					json = JSON.parse(body);
 
-					if (slaveGeo[json["geoplugin_countryName"]] == null) slaveGeo[json["geoplugin_countryName"]] = [];
+					if (slaveGeo[json["geoplugin_countryName"]] == null) 
+						slaveGeo[json["geoplugin_countryName"]] = [];
+					
 					slaveGeo[json["geoplugin_countryName"]].push(ip);
 
 					socket.country = json["geoplugin_countryName"];
 
-					if (slaveCountries.indexOf(socket.country) == -1) slaveCountries.push(socket.country);
+					if (slaveCountries.indexOf(socket.country) == -1)
+						slaveCountries.push(socket.country);
 				});
 				console.log('new slave connection from: '+ ip);
 		} else {
@@ -110,7 +113,7 @@ io.on('connection', function(socket) {
 	
 });
 
-http.listen(53, function() {
-	console.log('listening on *:53');
-	console.log('Control panel: http://localhost:53/')
+http.listen(8080, function() {
+	console.log('listening on *:8080');
+	console.log('Control panel: http://localhost:8080/')
 });

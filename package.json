@@ -4,7 +4,7 @@
   "description": "A C&C server made in nodejs",
   "main": "src/server/index.js",
   "scripts": {
-    "start": "nodemon -w \"plugins/\" -w \"package.json\" -w \"src/server\" --exec \"genversion version.js && node .\"",
+    "start": "nodemon -w \"plugins/\" -w \"src/server\" --exec \"genversion version.js && node .\"",
     "test": "cd src/client && python -m http.server"
   },
   "repository": {
