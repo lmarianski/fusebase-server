@@ -40,13 +40,19 @@ app.get("/clients", function(req, res) {
 });
 
 app.get("/modules", function(req, res) {
+	let renderedWidgets = [];
+
+	Modules.getAllModules().filter(module => module.widgetPath).forEach(module => {
+		renderedWidgets.push(pug.renderFile(module.widgetPath, {
+			filename: module.widgetPath
+		}));
+	});
+	
 	res.render("modules", {
 		autoRunListModules: Modules.getAllModules().filter(module => module.isAutoRun),
 		onConnectModules: modulesSettings.onConnectModules,
 		modules: Modules.getAllModules(),
-		test: pug.render("include control_panel\\test.pug", {
-			filename: control_panel_html_path
-		})
+		renderedWidgets: renderedWidgets
 	});
 });
 

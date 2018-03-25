@@ -1,7 +1,7 @@
 extends template.pug
 
 block main
-	div(id="onConnectModulesList")
+	div(id="onConnectModulesList" class="border")
 		span Auto Run Modules:
 
 		ul
@@ -9,12 +9,14 @@ block main
 				li
 					input(type="checkbox", id=modulee.name+"_onConnectCheckbox", checked=onConnectModules.includes(modulee.name))
 					= modulee.name
+	
+	each widget in renderedWidgets || []
+		!= widget
+
 	div(style="clear: both;")
 
 	//- each modulee in modules || [{name:"span", content: "hello"}]
 	//- 	#{modulee.name} #{modulee.content}
-
-	block moduleWidgets
 
 	div(class="center")
 		input(type="submit", onclick="save()", value="Save")

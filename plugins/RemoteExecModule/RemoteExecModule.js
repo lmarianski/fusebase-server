@@ -1,4 +1,4 @@
-let Module = require("../src/server/Module.js");
+let Module = require("../../src/server/Module.js");
 
 let M = new Module();
 
