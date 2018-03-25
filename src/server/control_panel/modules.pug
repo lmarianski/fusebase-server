@@ -1,15 +1,23 @@
 extends template.pug
 
 block main
-	div(class="center")
-
 	div(id="onConnectModulesList")
 		span Auto Run Modules:
-		
-		ul
-			each name in onConnectModules
-				li
-					input(type="checkbox", id=name+"_onConnect")
-					= name
 
+		ul
+			each modulee in autoRunListModules || []
+				li
+					input(type="checkbox", id=modulee.name+"_onConnectCheckbox", checked=onConnectModules.includes(modulee.name))
+					= modulee.name
 	div(style="clear: both;")
+
+	//- each modulee in modules || [{name:"span", content: "hello"}]
+	//- 	#{modulee.name} #{modulee.content}
+
+	block moduleWidgets
+
+	div(class="center")
+		input(type="submit", onclick="save()", value="Save")
+
+block scripts
+	script(src="js/modules.js")

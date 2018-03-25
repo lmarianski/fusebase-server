@@ -59,4 +59,8 @@ typings/
 
 # VS Code
 *\.eslintrc.json
+*\.eslintrc.js
 .vscode
+/modulesSettings.json
+/serverSettings.json
+/version.js

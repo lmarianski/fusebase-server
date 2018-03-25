@@ -17,6 +17,7 @@
   "dependencies": {
     "express": "^4.16.2",
     "genversion": "^2.0.1",
+    "node-cleanup": "^2.1.2",
     "nodemon": "^1.17.2",
     "pug": "^2.0.0-rc.4",
     "request": "^2.83.0",

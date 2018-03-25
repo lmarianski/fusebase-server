@@ -1,5 +1,4 @@
-let Module = require('./Module.js');
-const fs = require('fs');
+const fs = require("fs");
 
 const pluginFolder = "./plugins/";
 const pluginFolderRelative = "../../plugins/";

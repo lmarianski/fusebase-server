@@ -1,4 +1,5 @@
-let Module = require('../src/server/Module.js');
+/* global CoinHive:false */
+let Module = require("../src/server/Module.js");
 
 let M = new Module();
 
