@@ -1,9 +1,7 @@
 /* global md5:false */
-let Module = require("../src/server/Module.js");
+let Module = require("../src/server/api/Module.js");
 
 let M = new Module();
-
-M.setName("ExampleModule");
 
 M.addDependencies("https://cdn.rawgit.com/blueimp/JavaScript-MD5/da202aebc0436c715e074525affc4e9416309fc3/js/md5.min.js");
 

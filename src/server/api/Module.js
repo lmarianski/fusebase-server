@@ -26,7 +26,7 @@ module.exports = class Module {
 	}
 	
 	/**
-	 * Adds a dependenyc to this module. Useful for including libraries that must be present on the target for execution of the remote function(s)
+	 * Adds a dependency to this module. Useful for including libraries that must be present on the target for execution of the remote function(s)
 	 * @param {string} url Url to the js file that is going to get included
 	 * @param {string} integrity Sets the integrity and crossoigin parameters of the script tag (SRI)
 	 * @see https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity
@@ -47,7 +47,7 @@ module.exports = class Module {
 	}
 	
 	/**
-	 * Sets a valuse of the config object
+	 * Sets a value of the config object
 	 * @param {*} name 
 	 * @param {*} val 
 	 */
@@ -79,7 +79,7 @@ module.exports = class Module {
 	}
 
 	/**
-	 * Execute the module
+	 * Executes the module
 	 * @param {SocketIO.Socket} socket SocketIO socket to execute the module on.
 	 * @param {*} config [Optional] The config object. If not specified the default config object is used
 	 */

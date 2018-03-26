@@ -5,7 +5,8 @@
   "main": "src/server/server.js",
   "scripts": {
     "start": "nodemon -w \"plugins/\" -w \"src/server\" -i \"src/server/control_panel\" --exec \"genversion version.js && node .\"",
-    "test": "cd src/client && python -m http.server"
+    "test": "cd src/client && python -m http.server",
+    "docs": "esdoc"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,9 @@
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
+    "esdoc": "^1.0.4",
+    "esdoc-node": "^1.0.3",
+    "esdoc-standard-plugin": "^1.0.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-node": "^6.0.1",
