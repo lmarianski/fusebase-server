@@ -1,8 +1,9 @@
 extends template.pug
 
 block main
-	div(id="onConnectModulesList" class="border")
-		span Auto Run Modules:
+	div(id="onConnectModulesList" class="border widget")
+		span(class="centerX") Auto Run Modules:
+		div(style="clear: both;")
 
 		ul
 			each modulee in autoRunListModules || []

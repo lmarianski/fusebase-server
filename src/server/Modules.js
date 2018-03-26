@@ -1,5 +1,5 @@
 const fs = require("fs");
-const pug = require("pug");
+let path = require("path");
 
 const pluginFolder = "./plugins/";
 const pluginFolderRelative = "../../plugins/";
@@ -9,25 +9,30 @@ let modulesDict = {};
 
 fs.readdirSync(pluginFolder).forEach(file => {
 
+	let module;
 	if (!fs.lstatSync(pluginFolder+file).isDirectory()) {
-		let module = require(pluginFolderRelative+file);
-		modules.push(module);
-		modulesDict[module.name] = module;
+		if (file.match(".*\\.js")) {
+			module = require(pluginFolderRelative+file);
+			modules.push(module);
+			modulesDict[module.name] = module;
+			if (!module.name) module.setName(path.parse(file).name);
+		}
 	} else {
-		let module;
 		fs.readdirSync(pluginFolder+file).forEach(dirFile => {
-			if (dirFile.match(".*\\.js")) {
+			if (dirFile === file+".js" || dirFile === "main.js") {
 				module = require(pluginFolderRelative+file+"/"+dirFile);
+
+				if (!module.name) module.setName(file);
 			} else if (dirFile.match(".*\\.pug")) {
 				module.widgetPath = pluginFolder+file+"/"+dirFile;
 			}
 		});
-		if (module) {
-			modules.push(module);
-			modulesDict[module.name] = module;
-		}
 	}
 
+	if (module && !modules.includes(module)) {
+		modules.push(module);
+		modulesDict[module.name] = module;
+	}
 });
 
 module.exports = {

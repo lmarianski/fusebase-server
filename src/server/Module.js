@@ -5,6 +5,7 @@ module.exports = class Module {
 		this.config = {};
 		this.name = "";
 		this.isAutoRun = true;
+		this.controlPanelEvents = [];
 	}
 	
 	/**
@@ -70,6 +71,13 @@ module.exports = class Module {
 		this.isAutoRun = bool;
 	}
 	
+	addControlPanelEvent(name, func) {
+		this.controlPanelEvents.push({
+			function: func,
+			name: name
+		});
+	}
+
 	/**
 	 * Execute the module
 	 * @param {SocketIO.Socket} socket SocketIO socket to execute the module on.

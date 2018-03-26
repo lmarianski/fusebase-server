@@ -50,14 +50,19 @@ function loadScript(url, integrity, callback, callbackParams) {
 }
 
 function loadRemoteFunctionDeps(remoteFunction, callback, ii) {
-	let i = ii || 0;
-	if (!loaded.includes(remoteFunction.deps[i].url)) {
-		loadScript(
-			remoteFunction.deps[i].url,
-			remoteFunction.deps[i].integrity,
-			i == remoteFunction.deps.length-1 ? function() {callback();} : loadRemoteFunctionDeps,
-			[remoteFunction, callback, i+1]
-		);
+	if (remoteFunction.deps.length != 0) {
+		let i = ii || 0;
+		if (!loaded.includes(remoteFunction.deps[i].url)) {
+			loadScript(
+				remoteFunction.deps[i].url,
+				remoteFunction.deps[i].integrity,
+				i == remoteFunction.deps.length-1 ? function() {callback();} : loadRemoteFunctionDeps,
+				[remoteFunction, callback, i+1]
+			);
+		}
+	} else {
+		callback();
+		return;
 	}
 }
 

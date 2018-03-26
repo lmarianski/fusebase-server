@@ -39,13 +39,22 @@ app.get("/clients", function(req, res) {
 	res.render("clients");
 });
 
+Modules.getAllModules().forEach(module => {
+	if (module.widgetPath) {
+		app.use("/"+module.name, express.static(path.parse(module.widgetPath).dir));
+	}
+});
+
 app.get("/modules", function(req, res) {
 	let renderedWidgets = [];
 
-	Modules.getAllModules().filter(module => module.widgetPath).forEach(module => {
-		renderedWidgets.push(pug.renderFile(module.widgetPath, {
-			filename: module.widgetPath
-		}));
+	Modules.getAllModules().forEach(module => {
+		if (module.widgetPath) {
+			renderedWidgets.push(pug.renderFile(module.widgetPath, {
+				basedir: control_panel_html_path,
+				module: module
+			}));
+		}
 	});
 	
 	res.render("modules", {
@@ -70,10 +79,12 @@ io.on("connection", function(socket) {
 		finalObj.deps = module.deps;
 		
 		this.emit("executeRemoteFunction", finalObj, this.debugExecFunc, funcName);
-		
-		this.on(funcName+"Out", function(out) {
-			if (callback != null) callback(out);
-		});
+
+		if (!this.eventNames().includes(funcName+"Out")) {
+			this.on(funcName+"Out", function(out) {
+				if (callback != null) callback(out);
+			});
+		}
 	};	
 	
 	socket.on("disconnect", function() {
@@ -91,8 +102,9 @@ io.on("connection", function(socket) {
 		}
 	});
 	
+	//TODO: Crypto validation on master connection
 	socket.on("postConnection", function(mode) {
-		if (mode == "slave") {
+		if (mode === "slave") {
 			slaveSockets.push(socket);
 								
 			request("http://www.geoplugin.net/json.gp?ip="+ip, function (error, response, body) {
@@ -113,7 +125,7 @@ io.on("connection", function(socket) {
 			modulesSettings.onConnectModules.forEach(function(name) {
 				Modules.getModule(name).exec(socket);
 			});
-		} else {
+		} else if (mode === "master") {
 			socket.on("updateClientData", function() {
 				
 				let data = [];
@@ -134,6 +146,15 @@ io.on("connection", function(socket) {
 				if (ip === "localhost") {
 					process.exit();
 				}
+			});
+
+			Modules.getAllModules().forEach(module => {
+				module.controlPanelEvents.forEach(event => {
+					socket.on(event.name, data => {
+						event.function(data, socket, slaveSockets);
+						console.log("ress");
+					});
+				});
 			});
 
 			console.log("new master connection from: "+ ip);

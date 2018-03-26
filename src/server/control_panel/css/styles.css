@@ -70,7 +70,6 @@ nav ul li a {
 #onConnectModulesList {
 	float: left;
 	padding-right: 20px;
-	margin-left: 10px;
 }
 
 #onConnectModulesList ul {
@@ -84,10 +83,20 @@ nav ul li a {
 	display: list-item;
 }
 
-#onConnectModulesList span {
-	margin-left: 30px;
-}
-
 .border {
 	border: 3px solid #23f132;
+}
+
+.widget {
+	float: left;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+.widget .centerX {
+	position: relative;
+	float: left;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%);
 }
