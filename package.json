@@ -2,7 +2,7 @@
   "name": "FuseBase",
   "version": "0.0.1",
   "description": "A C&C server made in nodejs",
-  "main": "src/server/index.js",
+  "main": "src/server/server.js",
   "scripts": {
     "start": "nodemon -w \"plugins/\" -w \"src/server\" -i \"src/server/control_panel\" --exec \"genversion version.js && node .\"",
     "test": "cd src/client && python -m http.server"
