@@ -7,11 +7,11 @@
     {
       "name": "esdoc-integrate-manual-plugin",
       "option": {
-        "index": "./docs/manual/index.md",
+        "index": "./manual/index.md",
         "globalIndex": true,
-        "asset": "./docs/manual/asset",
+        "asset": "./manual/asset",
         "files": [
-          "./docs/manual/about_modules.md"
+          "./manual/about_modules.md"
         ]
       }
     }
