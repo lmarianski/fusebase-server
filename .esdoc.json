@@ -11,7 +11,8 @@
         "globalIndex": true,
         "asset": "./manual/asset",
         "files": [
-          "./manual/about_modules.md"
+          "./manual/about_modules.md",
+          "./manual/examples.md"
         ]
       }
     }

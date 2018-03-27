@@ -1,5 +1,5 @@
 # Introduction
-Modules (also called "plugins") are an easy way to expand functionality of both the server and the client. They can also expand the control panel using "widgets" and other resources. For examples of modules have a look at [Examples](#)
+Modules (also called "plugins") are an easy way to expand functionality of both the server and the client. They can also expand the control panel using "widgets" and other resources. For examples of modules have a look at [Examples](https://lukas2005.github.io/FuseBase/manual/examples.html)
 
 # Regular Modules
 Regular modules consist of a single file placed in the `/plugins/` directory. Each of them __must__ export an instance of the Module class. Given that this is a template for the most basic plugin:
