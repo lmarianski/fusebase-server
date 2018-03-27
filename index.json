@@ -1,0 +1,1210 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "api/.external-ecmascript.js",
+    "static": true,
+    "longname": "api/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "api/Module.js",
+    "content": "/**\n * Export the module\n */\nmodule.exports = class Module {\n\t\n\t/**\n\t * The default constructor\n\t */\n\tconstructor() {\n\t\t/**\n\t\t * @type {object[]}\n\t\t * @private\n\t\t */\n\t\tthis.remoteFunctions = {};\n\t\t\n\t\t/**\n\t\t * @type {object[]}\n\t\t * @private\n\t\t */\t\t\n\t\tthis.deps = [];\n\n\t\t/**\n\t\t * @type {object[]}\n\t\t * @private\n\t\t */\n\t\tthis.controlPanelEvents = [];\n\n\t\t/**\n\t\t * @type {string[]}\n\t\t * @private\n\t\t */\n\t\tthis.widgetPaths = [];\n\n\t\t/**\n\t\t * @type {function}\n\t\t * @private\n\t\t */\t\n\t\tthis.mainFunc = null;\n\n\t\t/**\n\t\t * @type {string}\n\t\t * Name of this module\n\t\t */\t\t\n\t\tthis.name = \"\";\n\n\t\t/**\n\t\t * @type {boolean}\n\t \t * Does this module appear in the control panel as a toggleable auto run module?\n\t\t */\t\t\n\t\tthis.isAutoRun = true;\n\n\t\t/**\n\t\t * @type {*}\n\t\t */\t\t\n\t\tthis.config = {};\n\t}\n\t\n\t/**\n\t * Sets the name of this module. If it stays unset then the name of the file/folder is used\n\t * @param {string} name New name\n\t */\n\tsetName(name) {\n\t\tthis.name = name;\n\t}\n\t\n\t/**\n\t * Adds a new remote function to this module\n\t * @param {string} name Name of the remote function\n\t * @param {function(data:*, debug:boolean): void} func Remote function's code {EXECUTED ON THE TARGET}. the debug option is set by the server and it should be used when doing any logging, the data object is the same one as provided when executing the function\n\t */\n\taddRemoteFunction(name, func) {\n\t\tthis.remoteFunctions[name] = func;\n\t}\n\t\n\t/**\n\t * Executes a remote function on the provided socket\n\t * @param {SocketIO.Socket} socket Socket to execute teh function on\n\t * @param {Module} module Module defining the function\n\t * @param {string} funcName Name of the function\n\t * @param {*[]} args Arguments to pass to the function\n\t * @param {function(out: *): void} callback Callback\n\t * @static\n\t */\n\texecuteRemoteFunc(socket, module, funcName, args, callback) {\n\t\tlet finalObj = {};\n\t\t\n\t\tfinalObj.func = module.remoteFunctions[funcName].toString();\n\t\tfinalObj.args = args;\n\t\tfinalObj.deps = module.deps;\n\t\t\n\t\tsocket.emit(\"executeRemoteFunction\", finalObj, socket.debugExecFunc, funcName);\n\n\t\tif (!socket.eventNames().includes(funcName+\"Out\")) {\n\t\t\tsocket.on(funcName+\"Out\", function(out) {\n\t\t\t\tif (callback != null) callback(out);\n\t\t\t});\n\t\t}\n\t}\t\n\n\t/**\n\t * Executes a remote function on the provided socket, but uses this as the module parameter\n\t * @param {SocketIO.Socket} socket Socket to execute teh function on\n\t * @param {string} funcName Name of the function\n\t * @param {*[]} args Arguments to pass to the function\n\t * @param {function(out: *): void} callback Callback, Optional\n\t * @static\n\t */\n\texecuteRemoteFuncFromThisModule(socket, funcName, args, callback) {\n\t\tthis.executeRemoteFunc(socket, this, funcName, args, callback);\n\t}\t\n\n\t/**\n\t * Adds a dependency to this module. Useful for including libraries that must be present on the target for execution of the remote function(s)\n\t * @param {string} url Url to the js file that is going to get included\n\t * @param {string} integrity Sets the integrity and crossoigin parameters of the script tag (SRI)\n\t * @see https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity\n\t */\n\taddDependencies(url, integrity) {\n\t\tlet dep = {};\n\t\tdep.url = url;\n\t\tdep.integrity = integrity || null;\n\t\tthis.deps.push(dep);\n\t}\t\n\t\n\t/**\n\t * Sets the default config obj\n\t * @param {*} config Object that is provided to you in the main function. Useful if you want to make your module configurable\n\t */\n\tsetDefaultConfig(config) {\n\t\tthis.config = config;\n\t}\n\t\n\t/**\n\t * Sets a value of the config object\n\t * @param {*} key \n\t * @param {*} val \n\t */\n\tsetConfigOpt(key, val) {\n\t\tthis.config[key] = val;\n\t}\t\n\t\n\t/**\n\t * Sets the main function of the module.\n\t * @param {function} mainFunc main function of the module {EXECUTED ON THE SERVER}\n\t */\n\tsetMainFunction(mainFunc) {\n\t\tthis.mainFunc = mainFunc;\n\t}\t\n\t\n\t/**\n\t * Should this module appear in the control panel as a toggleable auto run module?\n\t * @param {boolean} bool \n\t */\n\tsetAutoRunStatus(bool) {\n\t\tthis.isAutoRun = bool;\n\t}\n\t\n\t/**\n\t * Used for communication with the control panel. After adding an event you can emit it (in the control panel script) by calling socket.emit(\"name\", \"data\"); the data parameter is going to get returned in the first param of the callback function\n\t * @param {string} name \n\t * @param {function(data:*, masterSocket:SocketIO.Socket, slaveSockets:SocketIO.Socket[]): void} func - this is function param.\n\t */\n\taddControlPanelEvent(name, func) {\n\t\tthis.controlPanelEvents.push({\n\t\t\tfunction: func,\n\t\t\tname: name\n\t\t});\n\t}\n\n\t/**\n\t * Executes the module\n\t * @param {SocketIO.Socket} socket SocketIO socket to execute the module on.\n\t * @param {*} config [Optional] The config object. If not specified the default config object is used\n\t */\n\texec(socket, config) {\n\t\treturn this.mainFunc(this, socket, config || this.config);\n\t}\n\n};",
+    "static": true,
+    "longname": "/home/travis/build/lukas2005/FuseBase/src/server/api/Module.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "class",
+    "name": "Module",
+    "memberof": "api/Module.js",
+    "static": true,
+    "longname": "api/Module.js~Module",
+    "access": "public",
+    "export": true,
+    "importPath": "FuseBase/api/Module.js",
+    "importStyle": "Module",
+    "description": "Export the module",
+    "lineNumber": 4,
+    "interface": false
+  },
+  {
+    "__docId__": 50,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#constructor",
+    "access": "public",
+    "description": "The default constructor",
+    "lineNumber": 9
+  },
+  {
+    "__docId__": 51,
+    "kind": "member",
+    "name": "remoteFunctions",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#remoteFunctions",
+    "access": "private",
+    "description": "",
+    "lineNumber": 14,
+    "type": {
+      "nullable": null,
+      "types": [
+        "object[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "member",
+    "name": "deps",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#deps",
+    "access": "private",
+    "description": "",
+    "lineNumber": 20,
+    "type": {
+      "nullable": null,
+      "types": [
+        "object[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "member",
+    "name": "controlPanelEvents",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#controlPanelEvents",
+    "access": "private",
+    "description": "",
+    "lineNumber": 26,
+    "type": {
+      "nullable": null,
+      "types": [
+        "object[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "member",
+    "name": "widgetPaths",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#widgetPaths",
+    "access": "private",
+    "description": "",
+    "lineNumber": 32,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "member",
+    "name": "mainFunc",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#mainFunc",
+    "access": "private",
+    "description": "",
+    "lineNumber": 38,
+    "type": {
+      "nullable": null,
+      "types": [
+        "function"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "member",
+    "name": "name",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#name",
+    "access": "public",
+    "description": "",
+    "lineNumber": 44,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "member",
+    "name": "isAutoRun",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#isAutoRun",
+    "access": "public",
+    "description": "",
+    "lineNumber": 50,
+    "type": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "member",
+    "name": "config",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#config",
+    "access": "public",
+    "description": "",
+    "lineNumber": 55,
+    "type": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "method",
+    "name": "setName",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#setName",
+    "access": "public",
+    "description": "Sets the name of this module. If it stays unset then the name of the file/folder is used",
+    "lineNumber": 62,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "New name"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 61,
+    "kind": "method",
+    "name": "addRemoteFunction",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#addRemoteFunction",
+    "access": "public",
+    "description": "Adds a new remote function to this module",
+    "lineNumber": 71,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "Name of the remote function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function(data:*, debug:boolean): void"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "func",
+        "description": "Remote function's code {EXECUTED ON THE TARGET}. the debug option is set by the server and it should be used when doing any logging, the data object is the same one as provided when executing the function"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 62,
+    "kind": "method",
+    "name": "executeRemoteFunc",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#executeRemoteFunc",
+    "access": "public",
+    "description": "Executes a remote function on the provided socket",
+    "lineNumber": 84,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "SocketIO.Socket"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "socket",
+        "description": "Socket to execute teh function on"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Module"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "module",
+        "description": "Module defining the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "funcName",
+        "description": "Name of the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "args",
+        "description": "Arguments to pass to the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function(out: *): void"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "Callback"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 63,
+    "kind": "method",
+    "name": "executeRemoteFuncFromThisModule",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#executeRemoteFuncFromThisModule",
+    "access": "public",
+    "description": "Executes a remote function on the provided socket, but uses this as the module parameter",
+    "lineNumber": 108,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "SocketIO.Socket"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "socket",
+        "description": "Socket to execute teh function on"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "funcName",
+        "description": "Name of the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "args",
+        "description": "Arguments to pass to the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function(out: *): void"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "Callback, Optional"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 64,
+    "kind": "method",
+    "name": "addDependencies",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#addDependencies",
+    "access": "public",
+    "description": "Adds a dependency to this module. Useful for including libraries that must be present on the target for execution of the remote function(s)",
+    "see": [
+      "https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity"
+    ],
+    "lineNumber": 118,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "Url to the js file that is going to get included"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "integrity",
+        "description": "Sets the integrity and crossoigin parameters of the script tag (SRI)"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 65,
+    "kind": "method",
+    "name": "setDefaultConfig",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#setDefaultConfig",
+    "access": "public",
+    "description": "Sets the default config obj",
+    "lineNumber": 129,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "config",
+        "description": "Object that is provided to you in the main function. Useful if you want to make your module configurable"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "name": "setConfigOpt",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#setConfigOpt",
+    "access": "public",
+    "description": "Sets a value of the config object",
+    "lineNumber": 138,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "val",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 68,
+    "kind": "method",
+    "name": "setMainFunction",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#setMainFunction",
+    "access": "public",
+    "description": "Sets the main function of the module.",
+    "lineNumber": 146,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "mainFunc",
+        "description": "main function of the module {EXECUTED ON THE SERVER}"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 70,
+    "kind": "method",
+    "name": "setAutoRunStatus",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#setAutoRunStatus",
+    "access": "public",
+    "description": "Should this module appear in the control panel as a toggleable auto run module?",
+    "lineNumber": 154,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "bool",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 72,
+    "kind": "method",
+    "name": "addControlPanelEvent",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#addControlPanelEvent",
+    "access": "public",
+    "description": "Used for communication with the control panel. After adding an event you can emit it (in the control panel script) by calling socket.emit(\"name\", \"data\"); the data parameter is going to get returned in the first param of the callback function",
+    "lineNumber": 163,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function(data:*, masterSocket:SocketIO.Socket, slaveSockets:SocketIO.Socket[]): void"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "func",
+        "description": "this is function param."
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 73,
+    "kind": "method",
+    "name": "exec",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#exec",
+    "access": "public",
+    "description": "Executes the module",
+    "lineNumber": 175,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "SocketIO.Socket"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "socket",
+        "description": "SocketIO socket to execute the module on."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "config",
+        "description": "[Optional] The config object. If not specified the default config object is used"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "index",
+    "content": "# FuseBase\nA C&C ~botnet~ server made in nodejs\n\n# NOTE\nI don't take any responsibility for what you will do with this software/code.\nRemember that running malicious code on someone's machine without their knowledge is illegal.\n\n# Documentation / Build Status\n![docs progress badge](https://lukas2005.github.io/FuseBase/badge.svg)\n\n# Prerequisities\n1. Latest Nodejs\n\n# How to:\n## Step 1: Fork, Clone & Install\n1. Fork this repo (it will be handy later, altho you can skip this if you have a place to host js files)\n2. Clone/Download the repo to your PC\n3. Run `npm install` in the root\n\n## Step 2: Run and JS inclusion\n1. Run `npm start` in the root dir\n2. Edit `src/client/client.js` with any text editor and change the `nodeJsIp` const to `http://yourip:3000` (you might wanna get a DDNS)\n3. (Here is where the hosting part comes in) grab a link to `src/client/client.js` and include it wherever u wanna spread ur evilness (or goodness depending on what ur doing) AKA normal `<script src=\"link\"></script>` anywhere in the html.\n4. Get into the W.I.P Control Panel `yourip:3000`\n\n## Step 3: Use existing modules or write your own:\nSee the [Documentation](https://lukas2005.github.io/FuseBase/)\n",
+    "longname": "/home/travis/build/lukas2005/FuseBase/README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"FuseBase\",\n  \"version\": \"0.0.1\",\n  \"description\": \"A C&C server made in nodejs\",\n  \"main\": \"src/server/server.js\",\n  \"scripts\": {\n    \"start\": \"nodemon -w \\\"plugins/\\\" -w \\\"src/server\\\" -i \\\"src/server/control_panel\\\" --exec \\\"genversion version.js && node .\\\"\",\n    \"test\": \"echo \\\"test\\\"\",\n    \"client\": \"cd src/client && python -m http.server\",\n    \"docs\": \"esdoc\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/lukas2005/FuseBase.git\"\n  },\n  \"bugs\": \"https://github.com/lukas2005/FuseBase/issues\",\n  \"author\": \"lukas2005\",\n  \"license\": \"GPL-3.0\",\n  \"dependencies\": {\n    \"express\": \"^4.16.2\",\n    \"genversion\": \"^2.0.1\",\n    \"node-cleanup\": \"^2.1.2\",\n    \"nodemon\": \"^1.17.2\",\n    \"pug\": \"^2.0.0-rc.4\",\n    \"request\": \"^2.83.0\",\n    \"socket.io\": \"^2.0.4\"\n  },\n  \"devDependencies\": {\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-integrate-manual-plugin\": \"^1.0.0\",\n    \"esdoc-node\": \"^1.0.3\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint-config-standard\": \"^11.0.0\",\n    \"eslint-plugin-import\": \"^2.9.0\",\n    \"eslint-plugin-node\": \"^6.0.1\",\n    \"eslint-plugin-promise\": \"^3.7.0\",\n    \"eslint-plugin-standard\": \"^3.0.1\"\n  }\n}\n",
+    "longname": "/home/travis/build/lukas2005/FuseBase/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "manualIndex",
+    "globalIndex": true,
+    "content": "",
+    "longname": "/home/travis/build/lukas2005/FuseBase/docs/manual/index.md",
+    "name": "./docs/manual/index.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "manualAsset",
+    "longname": "/home/travis/build/lukas2005/FuseBase/docs/manual/asset",
+    "name": "./docs/manual/asset",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "manual",
+    "longname": "/home/travis/build/lukas2005/FuseBase/docs/manual/about_modules.md",
+    "name": "./docs/manual/about_modules.md",
+    "content": "# Introduction\nModules (also called \"plugins\") are an easy way to expand functionality of both the server and the client. They can also expand the control panel using \"widgets\" and other resources. For examples of modules have a look at [Examples](#)\n\n# Regular Modules\nRegular modules consist of a single file placed in the `/plugins/` directory. Each of them __must__ export an instance of the Module class. Given that this is a template for the most basic plugin:\n```js\nlet Module = require(\"../src/server/api/Module.js\");\nlet M = new Module();\n\nmodule.exports = M;\n```\n\nFor detailed options look at the reference of the [Module](https://lukas2005.github.io/FuseBase/class/api/Module.js~Module.html) class\n\n# Widget/Advanced Modules\nAdvanced modules reside in a directory under `/plugins/`. They are made out of many files and have greater range of capabilities.\n\nThe name of the directory can be anything.\nThe name of the main `.js` file of the module __must__ be equal to the name of the directory or `main.js`.\n\nTo create control panel widgets create a file named `widgetN.pug` where N is a number from 0 to 9 (you can have multiple widgets). Support for adding full pages will be added soon. The Pug templating engine is used for the control panel but normal HTML works. You can create custom server side and client side scripts. When including one in your widget append `/#{module.name}/` before any path. This will allow for easy renaming of your module. The `module` variable is the same module instance that you exported in your main java script file. For better understanding of the Pug language see [Pug docs](https://pugjs.org/api/getting-started.html).\n\nAnything you place in the `/plugins/ModuleName/` directory is served to the web on `http://server-ip:control-panel-port/ModuleName/`",
+    "static": true,
+    "access": "public"
+  }
+]
