@@ -36,10 +36,16 @@
 <li data-ice="manualNav" class="indent-h1" data-link="manual/about_modules.html"><a href="manual/about_modules.html#widget-advanced-modules" data-ice="link">Widget/Advanced Modules</a></li>
 </ul>
   </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/examples.html"><a href="manual/examples.html" data-ice="link">Examples</a></li>
+</ul>
+  </div>
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="introduction">Introduction</h1><p>Modules (also called &quot;plugins&quot;) are an easy way to expand functionality of both the server and the client. They can also expand the control panel using &quot;widgets&quot; and other resources. For examples of modules have a look at <a href="#">Examples</a></p>
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="introduction">Introduction</h1><p>Modules (also called &quot;plugins&quot;) are an easy way to expand functionality of both the server and the client. They can also expand the control panel using &quot;widgets&quot; and other resources. For examples of modules have a look at <a href="https://lukas2005.github.io/FuseBase/manual/examples.html">Examples</a></p>
 <h1 id="regular-modules">Regular Modules</h1><p>Regular modules consist of a single file placed in the <code>/plugins/</code> directory. Each of them <strong>must</strong> export an instance of the Module class. Given that this is a template for the most basic plugin:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">let Module = require(&quot;../src/server/api/Module.js&quot;);
 let M = new Module();

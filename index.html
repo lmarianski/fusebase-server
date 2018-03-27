@@ -36,6 +36,12 @@
 <li data-ice="manualNav" class="indent-h1" data-link="manual/about_modules.html"><a href="manual/about_modules.html#widget-advanced-modules" data-ice="link">Widget/Advanced Modules</a></li>
 </ul>
   </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/examples.html"><a href="manual/examples.html" data-ice="link">Examples</a></li>
+</ul>
+  </div>
 </div>
 </nav>
 
@@ -51,6 +57,12 @@
         <div data-ice="card"><h1>Widget/Advanced Modules</h1><p>Advanced modules reside in a directory under <code>/plugins/</code>. They are made out of many files and have greater range of capabilities.</p><p>The name of the directory can be anything.
 The name of the main <code>.js</code> file of the module <strong>must</strong> be equal to the name of the directory or <code>main.js</code>.</p><p>To add a control panel widget to your module create a file named <code>widgetN.pug</code> (where N is a number from 0 to 9 (you can have multiple widgets)) and place it in the directory of your module. Support for adding full pages will be added soon. The Pug templating engine is used for the control panel but normal HTML works. You can create custom server side and client side scripts. When including one in your widget append <code>/#{module.name}/</code> before any path. This will allow for easy renaming of your module. The <code>module</code> variable is the same module instance that you exported in your main java script file. For better understanding of the Pug language see <a href="https://pugjs.org/api/getting-started.html">Pug docs</a>.</p><p>Anything you place in the <code>/plugins/ModuleName/</code> directory is served to the web on <code>http://server-ip:control-panel-port/ModuleName/</code></p></div>
         <a data-ice="link" href="manual/about_modules.html#widget-advanced-modules"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Examples</h1><p>For examples of plugins you can look at the <a href="https://github.com/lukas2005/FuseBase/tree/master/plugins"><code>/plugins/</code></a> directory of the Github repo</p></div>
+        <a data-ice="link" href="manual/examples.html"></a>
       </div>
     </div>
 </div>
