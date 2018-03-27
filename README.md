@@ -6,7 +6,8 @@ I don't take any responsibility for what you will do with this software/code.
 Remember that running malicious code on someone's machine without their knowledge is illegal.
 
 # Documentation / Build Status
-![docs progress badge](https://lukas2005.github.io/FuseBase/badge.svg)
+[![Docs Status](https://lukas2005.github.io/FuseBase/badge.svg)](https://lukas2005.github.io/FuseBase/)
+[![Build Status](https://travis-ci.org/lukas2005/FuseBase.svg?branch=master)](https://travis-ci.org/lukas2005/FuseBase)
 
 # Prerequisities
 1. Latest Nodejs
