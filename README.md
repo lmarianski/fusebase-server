@@ -1,12 +1,12 @@
 # FuseBase
 A C&C ~botnet~ server made in nodejs
 
-# Documentation / Build Status
-![docs progress badge](https://lukas2005.github.io/FuseBase/badge.svg)
-
 # NOTE
 I don't take any responsibility for what you will do with this software/code.
 Remember that running malicious code on someone's machine without their knowledge is illegal.
+
+# Documentation / Build Status
+![docs progress badge](https://lukas2005.github.io/FuseBase/badge.svg)
 
 # Prerequisities
 1. Latest Nodejs
