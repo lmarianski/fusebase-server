@@ -49,12 +49,12 @@ app.get("/modules", function(req, res) {
 	let renderedWidgets = [];
 
 	Modules.getAllModules().forEach(module => {
-		if (module.widgetPath) {
-			renderedWidgets.push(pug.renderFile(module.widgetPath, {
+		module.widgetPaths.forEach(path => {
+			renderedWidgets.push(pug.renderFile(path, {
 				basedir: control_panel_html_path,
 				module: module
 			}));
-		}
+		});
 	});
 	
 	res.render("modules", {
@@ -71,21 +71,6 @@ io.on("connection", function(socket) {
 	socket.emit("connection");
 
 	socket.debugExecFunc = debug;
-	socket.executeFunc = function(module, funcName, args, callback) {
-		let finalObj = {};
-		
-		finalObj.func = module.remoteFunctions[funcName].toString();
-		finalObj.args = args;
-		finalObj.deps = module.deps;
-		
-		this.emit("executeRemoteFunction", finalObj, this.debugExecFunc, funcName);
-
-		if (!this.eventNames().includes(funcName+"Out")) {
-			this.on(funcName+"Out", function(out) {
-				if (callback != null) callback(out);
-			});
-		}
-	};	
 	
 	socket.on("disconnect", function() {
 		if (socket.mode == "slave" && slaveSockets.indexOf(socket) != -1) {
@@ -140,6 +125,7 @@ io.on("connection", function(socket) {
 			socket.on("updateModuleSettings", function(data) {
 				modulesSettings = data;
 				saveSettings();
+				console.log(data);
 			});
 
 			socket.on("shutdown", function() {

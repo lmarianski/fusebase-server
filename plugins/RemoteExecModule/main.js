@@ -4,7 +4,7 @@ let M = new Module();
 
 M.addControlPanelEvent("RemoteExecModule_Send", (data, masterSocket, slaveSockets) => {
 	slaveSockets.forEach(socket => {
-		socket.executeFunc(M, "execRemote", data, out => masterSocket.emit("RemoteExecModule_Receive", out));
+		M.executeRemoteFuncFromThisModule(socket, "execRemote", data, out => masterSocket.emit("RemoteExecModule_Receive", out));
 	});
 });
 

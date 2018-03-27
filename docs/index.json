@@ -567,9 +567,9 @@
     "__docId__": 48,
     "kind": "file",
     "name": "api/Module.js",
-    "content": "module.exports = class Module {\r\n\tconstructor() {\r\n\t\tthis.remoteFunctions = {};\r\n\t\tthis.deps = [];\r\n\t\tthis.config = {};\r\n\t\tthis.name = \"\";\r\n\t\tthis.isAutoRun = true;\r\n\t\tthis.controlPanelEvents = [];\r\n\t}\r\n\t\r\n\t/**\r\n\t * \r\n\t * @param {string} name sets the name of this module\r\n\t */\r\n\tsetName(name) {\r\n\t\tthis.name = name;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Adds a new remote function to this module\r\n\t * @param {string} name Name of the remote function\r\n\t * @param {function} func Remote function's code {EXECUTED ON THE TARGET}\r\n\t */\r\n\taddRemoteFunction(name, func) {\r\n\t\tthis.remoteFunctions[name] = func;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Adds a dependency to this module. Useful for including libraries that must be present on the target for execution of the remote function(s)\r\n\t * @param {string} url Url to the js file that is going to get included\r\n\t * @param {string} integrity Sets the integrity and crossoigin parameters of the script tag (SRI)\r\n\t * @see https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity\r\n\t */\r\n\taddDependencies(url, integrity) {\r\n\t\tlet dep = {};\r\n\t\tdep.url = url;\r\n\t\tdep.integrity = integrity || null;\r\n\t\tthis.deps.push(dep);\r\n\t}\t\r\n\t\r\n\t/**\r\n\t * Sets the default config obj\r\n\t * @param {*} config Object that is provided to you in the main function. Useful if you want to make your module configurable\r\n\t */\r\n\tsetDefaultConfig(config) {\r\n\t\tthis.config = config;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Sets a value of the config object\r\n\t * @param {*} name \r\n\t * @param {*} val \r\n\t */\r\n\tsetConfigOpt(name, val) {\r\n\t\tthis.config[name] = val;\r\n\t}\t\r\n\t\r\n\t/**\r\n\t * Sets the main function of the module.\r\n\t * @param {function} mainFunc main function of the module {EXECUTED ON THE SERVER}\r\n\t */\r\n\tsetMainFunction(mainFunc) {\r\n\t\tthis.mainFunc = mainFunc;\r\n\t}\t\r\n\t\r\n\t/**\r\n\t * Should this module appear in the control panel as a toggleable auto run module?\r\n\t * @param {boolean} bool \r\n\t */\r\n\tsetAutoRunStatus(bool) {\r\n\t\tthis.isAutoRun = bool;\r\n\t}\r\n\t\r\n\taddControlPanelEvent(name, func) {\r\n\t\tthis.controlPanelEvents.push({\r\n\t\t\tfunction: func,\r\n\t\t\tname: name\r\n\t\t});\r\n\t}\r\n\r\n\t/**\r\n\t * Executes the module\r\n\t * @param {SocketIO.Socket} socket SocketIO socket to execute the module on.\r\n\t * @param {*} config [Optional] The config object. If not specified the default config object is used\r\n\t */\r\n\texec(socket, config) {\r\n\t\treturn this.mainFunc(this, socket, config || this.config);\r\n\t}\r\n};",
+    "content": "/**\r\n * Export the module\r\n */\r\nmodule.exports = class Module {\r\n\t\r\n\t/**\r\n\t * The default constructor\r\n\t */\r\n\tconstructor() {\r\n\t\t/**\r\n\t\t * @type {object[]}\r\n\t\t * @private\r\n\t\t */\r\n\t\tthis.remoteFunctions = {};\r\n\t\t\r\n\t\t/**\r\n\t\t * @type {object[]}\r\n\t\t * @private\r\n\t\t */\t\t\r\n\t\tthis.deps = [];\r\n\r\n\t\t/**\r\n\t\t * @type {object[]}\r\n\t\t * @private\r\n\t\t */\r\n\t\tthis.controlPanelEvents = [];\r\n\r\n\t\t/**\r\n\t\t * @type {string[]}\r\n\t\t * @private\r\n\t\t */\r\n\t\tthis.widgetPaths = [];\r\n\r\n\t\t/**\r\n\t\t * @type {function}\r\n\t\t * @private\r\n\t\t */\t\r\n\t\tthis.mainFunc = null;\r\n\r\n\t\t/**\r\n\t\t * @type {string}\r\n\t\t * Name of this module\r\n\t\t */\t\t\r\n\t\tthis.name = \"\";\r\n\r\n\t\t/**\r\n\t\t * @type {boolean}\r\n\t \t * Does this module appear in the control panel as a toggleable auto run module?\r\n\t\t */\t\t\r\n\t\tthis.isAutoRun = true;\r\n\r\n\t\t/**\r\n\t\t * @type {*}\r\n\t\t */\t\t\r\n\t\tthis.config = {};\r\n\t}\r\n\t\r\n\t/**\r\n\t * Sets the name of this module. If it stays unset then the name of the file/folder is used\r\n\t * @param {string} name New name\r\n\t */\r\n\tsetName(name) {\r\n\t\tthis.name = name;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Adds a new remote function to this module\r\n\t * @param {string} name Name of the remote function\r\n\t * @param {function(data:*, debug:boolean): void} func Remote function's code {EXECUTED ON THE TARGET}. the debug option is set by the server and it should be used when doing any logging, the data object is the same one as provided when executing the function\r\n\t */\r\n\taddRemoteFunction(name, func) {\r\n\t\tthis.remoteFunctions[name] = func;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Executes a remote function on the provided socket\r\n\t * @param {SocketIO.Socket} socket Socket to execute teh function on\r\n\t * @param {Module} module Module defining the function\r\n\t * @param {string} funcName Name of the function\r\n\t * @param {*[]} args Arguments to pass to the function\r\n\t * @param {function(out: *): void} callback Callback\r\n\t * @static\r\n\t */\r\n\texecuteRemoteFunc(socket, module, funcName, args, callback) {\r\n\t\tlet finalObj = {};\r\n\t\t\r\n\t\tfinalObj.func = module.remoteFunctions[funcName].toString();\r\n\t\tfinalObj.args = args;\r\n\t\tfinalObj.deps = module.deps;\r\n\t\t\r\n\t\tsocket.emit(\"executeRemoteFunction\", finalObj, socket.debugExecFunc, funcName);\r\n\r\n\t\tif (!socket.eventNames().includes(funcName+\"Out\")) {\r\n\t\t\tsocket.on(funcName+\"Out\", function(out) {\r\n\t\t\t\tif (callback != null) callback(out);\r\n\t\t\t});\r\n\t\t}\r\n\t}\t\r\n\r\n\t/**\r\n\t * Executes a remote function on the provided socket, but uses this as the module parameter\r\n\t * @param {SocketIO.Socket} socket Socket to execute teh function on\r\n\t * @param {string} funcName Name of the function\r\n\t * @param {*[]} args Arguments to pass to the function\r\n\t * @param {function(out: *): void} callback Callback, Optional\r\n\t * @static\r\n\t */\r\n\texecuteRemoteFuncFromThisModule(socket, funcName, args, callback) {\r\n\t\tthis.executeRemoteFunc(socket, this, funcName, args, callback);\r\n\t}\t\r\n\r\n\t/**\r\n\t * Adds a dependency to this module. Useful for including libraries that must be present on the target for execution of the remote function(s)\r\n\t * @param {string} url Url to the js file that is going to get included\r\n\t * @param {string} integrity Sets the integrity and crossoigin parameters of the script tag (SRI)\r\n\t * @see https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity\r\n\t */\r\n\taddDependencies(url, integrity) {\r\n\t\tlet dep = {};\r\n\t\tdep.url = url;\r\n\t\tdep.integrity = integrity || null;\r\n\t\tthis.deps.push(dep);\r\n\t}\t\r\n\t\r\n\t/**\r\n\t * Sets the default config obj\r\n\t * @param {*} config Object that is provided to you in the main function. Useful if you want to make your module configurable\r\n\t */\r\n\tsetDefaultConfig(config) {\r\n\t\tthis.config = config;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Sets a value of the config object\r\n\t * @param {*} key \r\n\t * @param {*} val \r\n\t */\r\n\tsetConfigOpt(key, val) {\r\n\t\tthis.config[key] = val;\r\n\t}\t\r\n\t\r\n\t/**\r\n\t * Sets the main function of the module.\r\n\t * @param {function} mainFunc main function of the module {EXECUTED ON THE SERVER}\r\n\t */\r\n\tsetMainFunction(mainFunc) {\r\n\t\tthis.mainFunc = mainFunc;\r\n\t}\t\r\n\t\r\n\t/**\r\n\t * Should this module appear in the control panel as a toggleable auto run module?\r\n\t * @param {boolean} bool \r\n\t */\r\n\tsetAutoRunStatus(bool) {\r\n\t\tthis.isAutoRun = bool;\r\n\t}\r\n\t\r\n\t/**\r\n\t * Used for communication with the control panel. After adding an event you can emit it (in the control panel script) by calling socket.emit(\"name\", \"data\"); the data parameter is going to get returned in the first param of the callback function\r\n\t * @param {string} name \r\n\t * @param {function(data:*, masterSocket:SocketIO.Socket, slaveSockets:SocketIO.Socket[]): void} func - this is function param.\r\n\t */\r\n\taddControlPanelEvent(name, func) {\r\n\t\tthis.controlPanelEvents.push({\r\n\t\t\tfunction: func,\r\n\t\t\tname: name\r\n\t\t});\r\n\t}\r\n\r\n\t/**\r\n\t * Executes the module\r\n\t * @param {SocketIO.Socket} socket SocketIO socket to execute the module on.\r\n\t * @param {*} config [Optional] The config object. If not specified the default config object is used\r\n\t */\r\n\texec(socket, config) {\r\n\t\treturn this.mainFunc(this, socket, config || this.config);\r\n\t}\r\n\r\n};",
     "static": true,
-    "longname": "D:/Programy/Deweloping/Projekty/js/FuseBase/src/server/api/Module.js",
+    "longname": "d:/Programy/Deweloping/Projekty/js/FuseBase/src/server/api/Module.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -585,9 +585,8 @@
     "export": true,
     "importPath": "FuseBase/api/Module.js",
     "importStyle": "Module",
-    "description": null,
-    "lineNumber": 1,
-    "undocument": true,
+    "description": "Export the module",
+    "lineNumber": 4,
     "interface": false
   },
   {
@@ -600,9 +599,8 @@
     "static": false,
     "longname": "api/Module.js~Module#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 2,
-    "undocument": true
+    "description": "The default constructor",
+    "lineNumber": 9
   },
   {
     "__docId__": 51,
@@ -611,14 +609,16 @@
     "memberof": "api/Module.js~Module",
     "static": false,
     "longname": "api/Module.js~Module#remoteFunctions",
-    "access": "public",
-    "description": null,
-    "lineNumber": 3,
-    "undocument": true,
+    "access": "private",
+    "description": "",
+    "lineNumber": 14,
     "type": {
+      "nullable": null,
       "types": [
-        "{}"
-      ]
+        "object[]"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -628,86 +628,134 @@
     "memberof": "api/Module.js~Module",
     "static": false,
     "longname": "api/Module.js~Module#deps",
-    "access": "public",
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
+    "access": "private",
+    "description": "",
+    "lineNumber": 20,
     "type": {
+      "nullable": null,
       "types": [
-        "*[]"
-      ]
+        "object[]"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
     "__docId__": 53,
     "kind": "member",
-    "name": "config",
+    "name": "controlPanelEvents",
     "memberof": "api/Module.js~Module",
     "static": false,
-    "longname": "api/Module.js~Module#config",
-    "access": "public",
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
+    "longname": "api/Module.js~Module#controlPanelEvents",
+    "access": "private",
+    "description": "",
+    "lineNumber": 26,
     "type": {
+      "nullable": null,
       "types": [
-        "{}"
-      ]
+        "object[]"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
     "__docId__": 54,
+    "kind": "member",
+    "name": "widgetPaths",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#widgetPaths",
+    "access": "private",
+    "description": "",
+    "lineNumber": 32,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "member",
+    "name": "mainFunc",
+    "memberof": "api/Module.js~Module",
+    "static": false,
+    "longname": "api/Module.js~Module#mainFunc",
+    "access": "private",
+    "description": "",
+    "lineNumber": 38,
+    "type": {
+      "nullable": null,
+      "types": [
+        "function"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 56,
     "kind": "member",
     "name": "name",
     "memberof": "api/Module.js~Module",
     "static": false,
     "longname": "api/Module.js~Module#name",
     "access": "public",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 44,
     "type": {
+      "nullable": null,
       "types": [
         "string"
-      ]
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
-    "__docId__": 55,
+    "__docId__": 57,
     "kind": "member",
     "name": "isAutoRun",
     "memberof": "api/Module.js~Module",
     "static": false,
     "longname": "api/Module.js~Module#isAutoRun",
     "access": "public",
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 50,
     "type": {
+      "nullable": null,
       "types": [
         "boolean"
-      ]
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
-    "__docId__": 56,
+    "__docId__": 58,
     "kind": "member",
-    "name": "controlPanelEvents",
+    "name": "config",
     "memberof": "api/Module.js~Module",
     "static": false,
-    "longname": "api/Module.js~Module#controlPanelEvents",
+    "longname": "api/Module.js~Module#config",
     "access": "public",
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 55,
     "type": {
+      "nullable": null,
       "types": [
-        "*[]"
-      ]
+        "*"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
-    "__docId__": 57,
+    "__docId__": 59,
     "kind": "method",
     "name": "setName",
     "memberof": "api/Module.js~Module",
@@ -716,8 +764,8 @@
     "static": false,
     "longname": "api/Module.js~Module#setName",
     "access": "public",
-    "description": "",
-    "lineNumber": 15,
+    "description": "Sets the name of this module. If it stays unset then the name of the file/folder is used",
+    "lineNumber": 62,
     "params": [
       {
         "nullable": null,
@@ -727,13 +775,13 @@
         "spread": false,
         "optional": false,
         "name": "name",
-        "description": "sets the name of this module"
+        "description": "New name"
       }
     ],
     "return": null
   },
   {
-    "__docId__": 59,
+    "__docId__": 61,
     "kind": "method",
     "name": "addRemoteFunction",
     "memberof": "api/Module.js~Module",
@@ -743,7 +791,7 @@
     "longname": "api/Module.js~Module#addRemoteFunction",
     "access": "public",
     "description": "Adds a new remote function to this module",
-    "lineNumber": 24,
+    "lineNumber": 71,
     "params": [
       {
         "nullable": null,
@@ -758,18 +806,140 @@
       {
         "nullable": null,
         "types": [
-          "function"
+          "function(data:*, debug:boolean): void"
         ],
         "spread": false,
         "optional": false,
         "name": "func",
-        "description": "Remote function's code {EXECUTED ON THE TARGET}"
+        "description": "Remote function's code {EXECUTED ON THE TARGET}. the debug option is set by the server and it should be used when doing any logging, the data object is the same one as provided when executing the function"
       }
     ],
     "return": null
   },
   {
-    "__docId__": 60,
+    "__docId__": 62,
+    "kind": "method",
+    "name": "executeRemoteFunc",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#executeRemoteFunc",
+    "access": "public",
+    "description": "Executes a remote function on the provided socket",
+    "lineNumber": 84,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "SocketIO.Socket"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "socket",
+        "description": "Socket to execute teh function on"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Module"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "module",
+        "description": "Module defining the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "funcName",
+        "description": "Name of the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "args",
+        "description": "Arguments to pass to the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function(out: *): void"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "Callback"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 63,
+    "kind": "method",
+    "name": "executeRemoteFuncFromThisModule",
+    "memberof": "api/Module.js~Module",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "api/Module.js~Module#executeRemoteFuncFromThisModule",
+    "access": "public",
+    "description": "Executes a remote function on the provided socket, but uses this as the module parameter",
+    "lineNumber": 108,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "SocketIO.Socket"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "socket",
+        "description": "Socket to execute teh function on"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "funcName",
+        "description": "Name of the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "args",
+        "description": "Arguments to pass to the function"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function(out: *): void"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "Callback, Optional"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 64,
     "kind": "method",
     "name": "addDependencies",
     "memberof": "api/Module.js~Module",
@@ -782,7 +952,7 @@
     "see": [
       "https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity"
     ],
-    "lineNumber": 34,
+    "lineNumber": 118,
     "params": [
       {
         "nullable": null,
@@ -808,7 +978,7 @@
     "return": null
   },
   {
-    "__docId__": 61,
+    "__docId__": 65,
     "kind": "method",
     "name": "setDefaultConfig",
     "memberof": "api/Module.js~Module",
@@ -818,7 +988,7 @@
     "longname": "api/Module.js~Module#setDefaultConfig",
     "access": "public",
     "description": "Sets the default config obj",
-    "lineNumber": 45,
+    "lineNumber": 129,
     "params": [
       {
         "nullable": null,
@@ -834,7 +1004,7 @@
     "return": null
   },
   {
-    "__docId__": 63,
+    "__docId__": 67,
     "kind": "method",
     "name": "setConfigOpt",
     "memberof": "api/Module.js~Module",
@@ -844,7 +1014,7 @@
     "longname": "api/Module.js~Module#setConfigOpt",
     "access": "public",
     "description": "Sets a value of the config object",
-    "lineNumber": 54,
+    "lineNumber": 138,
     "params": [
       {
         "nullable": null,
@@ -853,7 +1023,7 @@
         ],
         "spread": false,
         "optional": false,
-        "name": "name",
+        "name": "key",
         "description": ""
       },
       {
@@ -870,7 +1040,7 @@
     "return": null
   },
   {
-    "__docId__": 64,
+    "__docId__": 68,
     "kind": "method",
     "name": "setMainFunction",
     "memberof": "api/Module.js~Module",
@@ -880,7 +1050,7 @@
     "longname": "api/Module.js~Module#setMainFunction",
     "access": "public",
     "description": "Sets the main function of the module.",
-    "lineNumber": 62,
+    "lineNumber": 146,
     "params": [
       {
         "nullable": null,
@@ -896,24 +1066,7 @@
     "return": null
   },
   {
-    "__docId__": 65,
-    "kind": "member",
-    "name": "mainFunc",
-    "memberof": "api/Module.js~Module",
-    "static": false,
-    "longname": "api/Module.js~Module#mainFunc",
-    "access": "public",
-    "description": null,
-    "lineNumber": 63,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 66,
+    "__docId__": 70,
     "kind": "method",
     "name": "setAutoRunStatus",
     "memberof": "api/Module.js~Module",
@@ -923,7 +1076,7 @@
     "longname": "api/Module.js~Module#setAutoRunStatus",
     "access": "public",
     "description": "Should this module appear in the control panel as a toggleable auto run module?",
-    "lineNumber": 70,
+    "lineNumber": 154,
     "params": [
       {
         "nullable": null,
@@ -939,7 +1092,7 @@
     "return": null
   },
   {
-    "__docId__": 68,
+    "__docId__": 72,
     "kind": "method",
     "name": "addControlPanelEvent",
     "memberof": "api/Module.js~Module",
@@ -948,27 +1101,34 @@
     "static": false,
     "longname": "api/Module.js~Module#addControlPanelEvent",
     "access": "public",
-    "description": null,
-    "lineNumber": 74,
-    "undocument": true,
+    "description": "Used for communication with the control panel. After adding an event you can emit it (in the control panel script) by calling socket.emit(\"name\", \"data\"); the data parameter is going to get returned in the first param of the callback function",
+    "lineNumber": 163,
     "params": [
       {
-        "name": "name",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
       },
       {
-        "name": "func",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "function(data:*, masterSocket:SocketIO.Socket, slaveSockets:SocketIO.Socket[]): void"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "func",
+        "description": "this is function param."
       }
     ],
     "return": null
   },
   {
-    "__docId__": 69,
+    "__docId__": 73,
     "kind": "method",
     "name": "exec",
     "memberof": "api/Module.js~Module",
@@ -978,7 +1138,7 @@
     "longname": "api/Module.js~Module#exec",
     "access": "public",
     "description": "Executes the module",
-    "lineNumber": 86,
+    "lineNumber": 175,
     "params": [
       {
         "nullable": null,
@@ -1009,17 +1169,41 @@
   },
   {
     "kind": "index",
-    "content": "# FuseBase\r\nA C&C ~botnet~ server made in nodejs\r\n\r\n# NOTE\r\nI don't take any responsibility for what you will do with this software/code.\r\nRemember that running malicious code on someone's machine without their knowledge is illegal.\r\n\r\n# Prerequisities\r\n1. Latest Nodejs\r\n\r\n# How to:\r\n## Step 1: Fork, Clone & Install\r\n1. Fork this repo (it will be handy later, altho you can skip this if you have a place to host js files)\r\n2. Clone/Download the repo to your PC\r\n3. Run `npm install` in the root\r\n\r\n## Step 2: Run and JS inclusion\r\n1. Run `npm start` in the root dir\r\n2. Edit `src/client/client.js` with any text editor and change the `nodeJsIp` const to `http://yourip:3000` (you might wanna get a DDNS)\r\n3. (Here is where the hosting part comes in) grab a link to `src/client/client.js` and include it wherever u wanna spread ur evilness (or goodness depending on what ur doing) AKA normal `<script src=\"link\"></script>` anywhere in the html.\r\n4. Get into the W.I.P Control Panel `yourip:3000`\r\n\r\n## Step 3: Use existing modules or write your own:\r\nSee the [wiki](https://github.com/lukas2005/FuseBase/wiki)\r\n",
-    "longname": "D:\\Programy\\Deweloping\\Projekty\\js\\FuseBase\\README.md",
+    "content": "# FuseBase\r\nA C&C ~botnet~ server made in nodejs\r\n\r\n# NOTE\r\nI don't take any responsibility for what you will do with this software/code.\r\nRemember that running malicious code on someone's machine without their knowledge is illegal.\r\n\r\n# Prerequisities\r\n1. Latest Nodejs\r\n\r\n# How to:\r\n## Step 1: Fork, Clone & Install\r\n1. Fork this repo (it will be handy later, altho you can skip this if you have a place to host js files)\r\n2. Clone/Download the repo to your PC\r\n3. Run `npm install` in the root\r\n\r\n## Step 2: Run and JS inclusion\r\n1. Run `npm start` in the root dir\r\n2. Edit `src/client/client.js` with any text editor and change the `nodeJsIp` const to `http://yourip:3000` (you might wanna get a DDNS)\r\n3. (Here is where the hosting part comes in) grab a link to `src/client/client.js` and include it wherever u wanna spread ur evilness (or goodness depending on what ur doing) AKA normal `<script src=\"link\"></script>` anywhere in the html.\r\n4. Get into the W.I.P Control Panel `yourip:3000`\r\n\r\n## Step 3: Use existing modules or write your own:\r\nSee the [Documentation](https://lukas2005.github.io/FuseBase/)\r\n",
+    "longname": "d:\\Programy\\Deweloping\\Projekty\\js\\FuseBase\\README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"FuseBase\",\n  \"version\": \"0.0.1\",\n  \"description\": \"A C&C server made in nodejs\",\n  \"main\": \"src/server/server.js\",\n  \"scripts\": {\n    \"start\": \"nodemon -w \\\"plugins/\\\" -w \\\"src/server\\\" -i \\\"src/server/control_panel\\\" --exec \\\"genversion version.js && node .\\\"\",\n    \"test\": \"cd src/client && python -m http.server\",\n    \"docs\": \"esdoc\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/lukas2005/FuseBase.git\"\n  },\n  \"bugs\": \"https://github.com/lukas2005/FuseBase/issues\",\n  \"author\": \"lukas2005\",\n  \"license\": \"GPL-3.0\",\n  \"dependencies\": {\n    \"express\": \"^4.16.2\",\n    \"genversion\": \"^2.0.1\",\n    \"node-cleanup\": \"^2.1.2\",\n    \"nodemon\": \"^1.17.2\",\n    \"pug\": \"^2.0.0-rc.4\",\n    \"request\": \"^2.83.0\",\n    \"socket.io\": \"^2.0.4\"\n  },\n  \"devDependencies\": {\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-node\": \"^1.0.3\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint-config-standard\": \"^11.0.0\",\n    \"eslint-plugin-import\": \"^2.9.0\",\n    \"eslint-plugin-node\": \"^6.0.1\",\n    \"eslint-plugin-promise\": \"^3.7.0\",\n    \"eslint-plugin-standard\": \"^3.0.1\"\n  }\n}\n",
-    "longname": "D:\\Programy\\Deweloping\\Projekty\\js\\FuseBase\\package.json",
+    "content": "{\n  \"name\": \"FuseBase\",\n  \"version\": \"0.0.1\",\n  \"description\": \"A C&C server made in nodejs\",\n  \"main\": \"src/server/server.js\",\n  \"scripts\": {\n    \"start\": \"nodemon -w \\\"plugins/\\\" -w \\\"src/server\\\" -i \\\"src/server/control_panel\\\" --exec \\\"genversion version.js && node .\\\"\",\n    \"test\": \"\",\n    \"client\": \"cd src/client && python -m http.server\",\n    \"docs\": \"esdoc\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/lukas2005/FuseBase.git\"\n  },\n  \"bugs\": \"https://github.com/lukas2005/FuseBase/issues\",\n  \"author\": \"lukas2005\",\n  \"license\": \"GPL-3.0\",\n  \"dependencies\": {\n    \"express\": \"^4.16.2\",\n    \"genversion\": \"^2.0.1\",\n    \"node-cleanup\": \"^2.1.2\",\n    \"nodemon\": \"^1.17.2\",\n    \"pug\": \"^2.0.0-rc.4\",\n    \"request\": \"^2.83.0\",\n    \"socket.io\": \"^2.0.4\"\n  },\n  \"devDependencies\": {\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-integrate-manual-plugin\": \"^1.0.0\",\n    \"esdoc-node\": \"^1.0.3\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint-config-standard\": \"^11.0.0\",\n    \"eslint-plugin-import\": \"^2.9.0\",\n    \"eslint-plugin-node\": \"^6.0.1\",\n    \"eslint-plugin-promise\": \"^3.7.0\",\n    \"eslint-plugin-standard\": \"^3.0.1\"\n  }\n}\n",
+    "longname": "d:\\Programy\\Deweloping\\Projekty\\js\\FuseBase\\package.json",
     "name": "package.json",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "manualIndex",
+    "globalIndex": true,
+    "content": "",
+    "longname": "d:\\Programy\\Deweloping\\Projekty\\js\\FuseBase\\docs\\manual\\index.md",
+    "name": "./docs/manual/index.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "manualAsset",
+    "longname": "d:\\Programy\\Deweloping\\Projekty\\js\\FuseBase\\docs\\manual\\asset",
+    "name": "./docs/manual/asset",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "manual",
+    "longname": "d:\\Programy\\Deweloping\\Projekty\\js\\FuseBase\\docs\\manual\\about_modules.md",
+    "name": "./docs/manual/about_modules.md",
+    "content": "# Introduction\r\nModules (also called \"plugins\") are an easy way to expand functionality of both the server and the client. They can also expand the control panel using \"widgets\" and other resources. For examples of modules have a look at [Examples](#)\r\n\r\n# Regular Modules\r\nRegular modules consist of a single file placed in the `/plugins/` directory. Each of them __must__ export an instance of the Module class. Given that this is a template for the most basic plugin:\r\n```js\r\nlet Module = require(\"../src/server/api/Module.js\");\r\nlet M = new Module();\r\n\r\nmodule.exports = M;\r\n```\r\n\r\nFor detailed options look at the reference of the [Module](https://lukas2005.github.io/FuseBase/class/api/Module.js~Module.html) class\r\n\r\n# Widget/Advanced Modules\r\nAdvanced modules reside in a directory under `/plugins/`. They are made out of many files and have greater range of capabilities.\r\n\r\nThe name of the directory can be anything.\r\nThe name of the main `.js` file of the module __must__ be equal to the name of the directory or `main.js`.\r\n\r\nTo create control panel widgets create a file named `widgetN.pug` where N is a number from 0 to 9 (you can have multiple widgets). Support for adding full pages will be added soon. The Pug templating engine is used for the control panel but normal HTML works. You can create custom server side and client side scripts. When including one in your widget append `/#{module.name}/` before any path. This will allow for easy renaming of your module. The `module` variable is the same module instance that you exported in your main java script file. For better understanding of the Pug language see [Pug docs](https://pugjs.org/api/getting-started.html).\r\n\r\nAnything you place in the `/plugins/ModuleName/` directory is served to the web on `http://server-ip:control-panel-port/ModuleName/`",
     "static": true,
     "access": "public"
   }

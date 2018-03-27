@@ -13,8 +13,6 @@ fs.readdirSync(pluginFolder).forEach(file => {
 	if (!fs.lstatSync(pluginFolder+file).isDirectory()) {
 		if (file.match(".*\\.js")) {
 			module = require(pluginFolderRelative+file);
-			modules.push(module);
-			modulesDict[module.name] = module;
 			if (!module.name) module.setName(path.parse(file).name);
 		}
 	} else {
@@ -23,8 +21,8 @@ fs.readdirSync(pluginFolder).forEach(file => {
 				module = require(pluginFolderRelative+file+"/"+dirFile);
 
 				if (!module.name) module.setName(file);
-			} else if (dirFile.match(".*\\.pug")) {
-				module.widgetPath = pluginFolder+file+"/"+dirFile;
+			} else if (dirFile.match("widget[0-9]\\.pug")) {
+				module.widgetPaths.push(pluginFolder+file+"/"+dirFile);
 			}
 		});
 	}

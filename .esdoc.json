@@ -3,6 +3,17 @@
   "destination": "./docs",
   "plugins": [
     {"name": "esdoc-standard-plugin"},
-    {"name": "esdoc-node"}
+    {"name": "esdoc-node"},
+    {
+      "name": "esdoc-integrate-manual-plugin",
+      "option": {
+        "index": "./docs/manual/index.md",
+        "globalIndex": true,
+        "asset": "./docs/manual/asset",
+        "files": [
+          "./docs/manual/about_modules.md"
+        ]
+      }
+    }
   ]
 }

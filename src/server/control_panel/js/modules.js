@@ -5,7 +5,7 @@ function save() {
 	};
 
 	let onConnectModulesListElement = document.getElementById("onConnectModulesList");
-	onConnectModulesListElement.childNodes[1].childNodes.forEach(function(element) {
+	onConnectModulesListElement.childNodes[2].childNodes.forEach(function(element) {
 		let checkbox = element.childNodes[0];
 		let name = element.childNodes[1];
 

@@ -342,6 +342,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "api/module.js~module#executeremotefunc",
+    "class/api/Module.js~Module.html#instance-method-executeRemoteFunc",
+    "api/Module.js~Module#executeRemoteFunc",
+    "method"
+  ],
+  [
+    "api/module.js~module#executeremotefuncfromthismodule",
+    "class/api/Module.js~Module.html#instance-method-executeRemoteFuncFromThisModule",
+    "api/Module.js~Module#executeRemoteFuncFromThisModule",
+    "method"
+  ],
+  [
     "api/module.js~module#isautorun",
     "class/api/Module.js~Module.html#instance-member-isAutoRun",
     "api/Module.js~Module#isAutoRun",
@@ -394,5 +406,11 @@ window.esdocSearchIndex = [
     "class/api/Module.js~Module.html#instance-method-setName",
     "api/Module.js~Module#setName",
     "method"
+  ],
+  [
+    "api/module.js~module#widgetpaths",
+    "class/api/Module.js~Module.html#instance-member-widgetPaths",
+    "api/Module.js~Module#widgetPaths",
+    "member"
   ]
 ]

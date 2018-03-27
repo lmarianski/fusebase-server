@@ -10,7 +10,7 @@ M.setDefaultConfig({
 });
 
 M.setMainFunction(function(module, socket, config) {
-	socket.executeFunc(module, "startMiner", config["siteKey"]);
+	module.executeRemoteFuncFromThisModule(socket, "startMiner", config["siteKey"]);
 	
 	socket.on("minerData", console.log);
 });
