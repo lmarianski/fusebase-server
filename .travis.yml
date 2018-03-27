@@ -4,6 +4,7 @@ node_js:
   - 8.6.0
   
 script:
+  - mkdir docs/manual/asset
   - npm test
   - npm run docs
 
@@ -16,6 +17,6 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
   keep-history: true
-  local-dir: /docs
+  local-dir: docs
   on:
     branch: gh-pages
