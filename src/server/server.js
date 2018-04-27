@@ -15,9 +15,9 @@ let Modules = require("./Modules.js");
 let ver = "";
 
 try {
-	var = require("./../../version.js");
+	ver = require("./../../version.js");
 } catch (ex) {
-	var = "{UNKNOWN VERSION}";
+	ver = "{UNKNOWN VERSION}";
 }
 
 let slaveSockets = [];
