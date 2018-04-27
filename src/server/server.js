@@ -11,7 +11,14 @@ let pug = require("pug");
 const debug = true;
 
 let Modules = require("./Modules.js");
-let ver = require("./../../version.js") || "1.0.0";
+
+let ver = "";
+
+try {
+	var = require("./../../version.js");
+} catch {
+	var = "{UNKNOWN VERSION}";
+}
 
 let slaveSockets = [];
 let slaveGeo = {};
