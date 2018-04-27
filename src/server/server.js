@@ -16,7 +16,7 @@ let ver = "";
 
 try {
 	var = require("./../../version.js");
-} catch {
+} catch (ex) {
 	var = "{UNKNOWN VERSION}";
 }
 
