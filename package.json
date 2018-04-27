@@ -5,7 +5,7 @@
   "main": "src/server/server.js",
   "scripts": {
     "dev": "nodemon -w \"plugins/\" -w \"src/server\" -i \"src/server/control_panel\" --exec \"genversion version.js && node .\"",
-    "start": "genversion version.js && node .",
+    "start": "node .",
     "test": "echo \"test\"",
     "client": "cd src/client && python -m http.server",
     "docs": "esdoc"
