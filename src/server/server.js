@@ -172,6 +172,7 @@ function saveSettings() {
 
 function loadSettings(callback) {
 	fs.readFile("modulesSettings.json", function(err, data) {
+		console.log(data);
 		modulesSettings = JSON.parse(data);
 
 		if (fs.existsSync("serverSettings.json")) {
