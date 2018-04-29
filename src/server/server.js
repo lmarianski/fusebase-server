@@ -163,29 +163,37 @@ function onShutdown(exitCode, signal) {
 }
 
 function saveSettings() {
-	let modulesSettingsJson = JSON.stringify(modulesSettings, null, "\t");
-	fs.writeFileSync("modulesSettings.json", modulesSettingsJson);
 
-	let serverSettingsJson = JSON.stringify(serverSettings, null, "\t");
-	fs.writeFileSync("serverSettings.json", serverSettingsJson);
+	let modulesSettingsJson = JSON.stringify(modulesSettings, null, "\t");
+	fs.writeFile("modulesSettings.json", modulesSettingsJson, function() {
+
+		let serverSettingsJson = JSON.stringify(serverSettings, null, "\t");
+		fs.writeFileSync("serverSettings.json", serverSettingsJson);
+
+	});
+	
 }
 
 function loadSettings(callback) {
-	fs.readFile("modulesSettings.json", function(err, data) {
-		console.log(data);
-		modulesSettings = JSON.parse(data);
-
-		if (fs.existsSync("serverSettings.json")) {
-			fs.readFile("serverSettings.json", function(err, data) {
-				if (!err) {
-					serverSettings = JSON.parse(data);
-				}
-				if (callback) callback();
+	fs.exists("modulesSettings.json", function(exists) {
+		if (exists) {
+			fs.readFile("modulesSettings.json", function(err, data) {
+				console.log(data);
+				modulesSettings = JSON.parse(data);
+				console.log(modulesSettings);
 			});
-		} else {
-			saveSettings();
 		}
 	});
+	fs.exists("serverSettings.json", function(exists) {
+		fs.readFile("serverSettings.json", function(err, data) {
+			if (!err) {
+				serverSettings = JSON.parse(data);
+			}
+		});
+	});
+
+	saveSettings();
+	if (callback) callback();
 }
 
 loadSettings(function() {
