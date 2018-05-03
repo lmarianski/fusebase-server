@@ -1,4 +1,7 @@
 const nodeJsIp = undefined;
+const socketConf = {
+	transports: ["websockets"]
+}
 
 let socket;
 let loaded = [];
@@ -73,7 +76,7 @@ loadScript("https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"
 
 // Actual code starts here
 function client() {
-	socket = nodeJsIp ? io(nodeJsIp) : io();
+	socket = nodeJsIp ? io(nodeJsIp, socketConf) : io(socketConf);
 	
 	socket.on("connection", function() {
 		socket.emit("postConnection", "slave");
@@ -88,5 +91,9 @@ function client() {
 		});
 		
 	});
-
+	// on reconnection, reset the transports option, as the Websocket
+	// connection may have failed (caused by proxy, firewall, browser, ...)
+	socket.on('reconnect_attempt', () => {
+		socket.io.opts.transports = ['polling', 'websocket'];
+	});
 }
