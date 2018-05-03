@@ -2,9 +2,7 @@ let express = require("express");
 let app = express();
 let path = require("path");
 let http = require("http").Server(app);
-let socketConf = {};
-if (process.env.OPENSHIFT == "true") socketConf.transports = ["websockets"];
-let io = require("socket.io")(http, socketConf);
+let io = require("socket.io")(http);
 let request = require("request");
 let nodeCleanup = require("node-cleanup");
 let fs = require("fs");
@@ -61,6 +59,10 @@ app.use(function (req, res, next) {
 });
 
 io.origins("*");
+
+io.configure(function(){
+    if (process.env.OPENSHIFT) io.set("transports", ["websocket"]);
+});
 
 app.get("/", function(req, res) {
 	res.render("index", { version: ver });
