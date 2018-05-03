@@ -1,4 +1,4 @@
-const nodeJsIp = "http://localhost:8080";
+const nodeJsIp = undefined;
 
 let socket;
 let loaded = [];
@@ -73,7 +73,7 @@ loadScript("https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"
 
 // Actual code starts here
 function client() {
-	socket = io(nodeJsIp);
+	socket = nodeJsIp ? io(nodeJsIp) : io();
 	
 	socket.on("connection", function() {
 		socket.emit("postConnection", "slave");
