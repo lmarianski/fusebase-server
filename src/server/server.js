@@ -68,6 +68,8 @@ app.get("/clients", function(req, res) {
 	res.render("clients");
 });
 
+app.use("/client", express.static("../client");
+
 Modules.getAllModules().forEach(module => {
 	if (module.widgetPath) {
 		app.use("/"+module.name, express.static(path.parse(module.widgetPath).dir));
