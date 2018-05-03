@@ -2,7 +2,7 @@ let express = require("express");
 let app = express();
 let path = require("path");
 let http = require("http").Server(app);
-let io = require("socket.io")(http);
+let socketio = require("socket.io");
 let request = require("request");
 let nodeCleanup = require("node-cleanup");
 let fs = require("fs");
@@ -32,6 +32,10 @@ let serverSettings = {
 	port: 8080
 };
 
+const CORS = "*";
+
+let io = socketio(http, {origins: CORS});
+
 let control_panel_html_path = path.join(__dirname, "control_panel");
 
 app.set("view engine", "pug");
@@ -42,7 +46,7 @@ app.use(express.static(control_panel_html_path));
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', CORS);
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
