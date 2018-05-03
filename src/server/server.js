@@ -33,6 +33,7 @@ let serverSettings = {
 };
 
 let control_panel_html_path = path.join(__dirname, "control_panel");
+let client_html_path = path.join(__dirname, "..", "client");
 
 app.set("view engine", "pug");
 app.set("views", control_panel_html_path);
@@ -68,7 +69,7 @@ app.get("/clients", function(req, res) {
 	res.render("clients");
 });
 
-app.use("/client", express.static("../client"));
+app.use("/client", express.static(client_html_path));
 
 Modules.getAllModules().forEach(module => {
 	if (module.widgetPath) {
