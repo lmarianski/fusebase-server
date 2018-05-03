@@ -60,10 +60,6 @@ app.use(function (req, res, next) {
 
 io.origins("*");
 
-io.configure(function(){
-    if (process.env.OPENSHIFT) io.set("transports", ["websocket"]);
-});
-
 app.get("/", function(req, res) {
 	res.render("index", { version: ver });
 });
