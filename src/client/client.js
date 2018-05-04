@@ -76,7 +76,7 @@ loadScript("https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"
 
 // Actual code starts here
 function client() {
-	socket = nodeJsIp ? io(nodeJsIp, socketConf) : io("ws"+window.location.substring(4), socketConf);
+	socket = nodeJsIp ? io(nodeJsIp, socketConf) : io("ws"+window.location.href.substring(4), socketConf);
 	
 	socket.on("connection", function() {
 		socket.emit("postConnection", "slave");
