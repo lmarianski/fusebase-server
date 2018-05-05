@@ -70,7 +70,7 @@ function loadRemoteFunctionDeps(remoteFunction, callback, ii) {
 }
 
 // Script loading
-loadScript("https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js", null, function() {
+loadScript("https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js", null, function() {
 	client();
 });
 
