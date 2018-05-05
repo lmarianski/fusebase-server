@@ -99,9 +99,7 @@ app.get("/modules", function(req, res) {
 
 io.on("connection", function(socket) {
 	let ip = (socket.handshake.headers["x-forwarded-for"] || socket.request.connection.remoteAddress).address || "localhost";
-
-	socket.emit("connection");
-
+	
 	socket.debugExecFunc = debug;
 	
 	socket.on("disconnect", function() {
