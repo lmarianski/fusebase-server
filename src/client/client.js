@@ -1,6 +1,6 @@
 const nodeJsIp = undefined;
 const socketConf = {
-	transports: ["websockets"]
+	transports: ["websocket"]
 }
 
 let socket;
