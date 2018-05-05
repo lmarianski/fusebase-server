@@ -9,6 +9,6 @@ socket.on("reconnect_attempt", () => {
 	socket.io.opts.transports = ["polling", "websocket"];
 });
 
-socket.on("connection", () => {
+socket.on("connect", () => {
 	socket.emit("postConnection", "master");
 });
