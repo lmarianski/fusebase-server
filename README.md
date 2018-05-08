@@ -8,6 +8,7 @@ Remember that running malicious code on someone's machine without their knowledg
 # Documentation / Build Status
 [![Docs Status](https://lukas2005.github.io/FuseBase/badge.svg)](https://lukas2005.github.io/FuseBase/)
 [![Build Status](https://travis-ci.org/lukas2005/FuseBase.svg?branch=master)](https://travis-ci.org/lukas2005/FuseBase)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flukas2005%2FFuseBase.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flukas2005%2FFuseBase?ref=badge_shield)
 
 # Prerequisities
 1. Latest Nodejs
@@ -26,3 +27,7 @@ Remember that running malicious code on someone's machine without their knowledg
 
 ## Step 3: Use existing modules or write your own:
 See the [Documentation](https://lukas2005.github.io/FuseBase/)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flukas2005%2FFuseBase.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flukas2005%2FFuseBase?ref=badge_large)
