@@ -90,6 +90,8 @@ module.exports = class Module {
 		 * @type {*}
 		 */		
 		this.config = {};
+
+		this.main = Module.main;
 	}
 	
 	/**
@@ -127,11 +129,14 @@ module.exports = class Module {
 		
 		socket.emit(&quot;executeRemoteFunction&quot;, finalObj, socket.debugExecFunc, funcName);
 
-		if (!socket.eventNames().includes(funcName+&quot;Out&quot;)) {
-			socket.on(funcName+&quot;Out&quot;, function(out) {
+		//if (!socket.eventNames().includes(funcName+&quot;Out&quot;)) {
+			let listener = (out) =&gt; {
+				socket.removeListener(funcName+&quot;Out&quot;, listener);
+
 				if (callback != null) callback(out);
-			});
-		}
+			};
+			socket.on(funcName+&quot;Out&quot;, listener);
+		//}
 	}	
 
 	/**
@@ -165,6 +170,8 @@ module.exports = class Module {
 	 */
 	setDefaultConfig(config) {
 		this.config = config;
+
+		this.main.onModuleConfigChange(this, this.config, true);
 	}
 	
 	/**
@@ -174,6 +181,8 @@ module.exports = class Module {
 	 */
 	setConfigOpt(key, val) {
 		this.config[key] = val;
+
+		this.main.onModuleConfigChange(this, this.config);
 	}	
 	
 	/**
@@ -213,6 +222,14 @@ module.exports = class Module {
 		return this.mainFunc(this, socket, config || this.config);
 	}
 
+
+	update() {
+		if (this.main.getModuleSettings()[this.name]) {
+			this.config = this.main.getModuleSettings()[this.name];
+
+			console.log(this.config);
+		}
+	}
 };</code></pre>
 
 </div>

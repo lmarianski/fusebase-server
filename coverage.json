@@ -1,12 +1,15 @@
 {
-  "coverage": "100%",
-  "expectCount": 21,
+  "coverage": "91.3%",
+  "expectCount": 23,
   "actualCount": 21,
   "files": {
     "api/Module.js": {
-      "expectCount": 21,
+      "expectCount": 23,
       "actualCount": 21,
-      "undocumentLines": []
+      "undocumentLines": [
+        57,
+        189
+      ]
     }
   }
 }

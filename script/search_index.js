@@ -360,6 +360,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "api/module.js~module#main",
+    "class/api/Module.js~Module.html#instance-member-main",
+    "api/Module.js~Module#main",
+    "member"
+  ],
+  [
     "api/module.js~module#mainfunc",
     "class/api/Module.js~Module.html#instance-member-mainFunc",
     "api/Module.js~Module#mainFunc",
@@ -405,6 +411,12 @@ window.esdocSearchIndex = [
     "api/module.js~module#setname",
     "class/api/Module.js~Module.html#instance-method-setName",
     "api/Module.js~Module#setName",
+    "method"
+  ],
+  [
+    "api/module.js~module#update",
+    "class/api/Module.js~Module.html#instance-method-update",
+    "api/Module.js~Module#update",
     "method"
   ],
   [
