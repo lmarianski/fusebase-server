@@ -7,7 +7,7 @@
     "dev": "nodemon -w \"plugins/\" -w \"src/server\" -i \"src/server/control_panel\" --exec \"npm start\"",
     "start": "genversion version.js && node .",
     "test": "echo \"test\"",
-    "client": "cd src/client && python -m http.server",
+    "client": "cd src/client && http-server",
     "docs": "esdoc"
   },
   "repository": {

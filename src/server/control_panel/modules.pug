@@ -8,7 +8,7 @@ block main
 		ul
 			each modulee in autoRunListModules || []
 				li
-					input(type="checkbox", id=modulee.name+"_onConnectCheckbox", checked=onConnectModules.includes(modulee.name))
+					input(type="checkbox", id=modulee.name+"_onConnectCheckbox", checked=modulesSettings.onConnectModules.includes(modulee.name))
 					= modulee.name
 	
 	each widget in renderedWidgets || []

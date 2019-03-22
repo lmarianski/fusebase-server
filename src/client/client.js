@@ -1,4 +1,4 @@
-const nodeJsIp = undefined;
+const nodeJsIp = "/";
 const socketConf = {
 	transports: ["websocket"]
 }

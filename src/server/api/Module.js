@@ -53,6 +53,8 @@ module.exports = class Module {
 		 * @type {*}
 		 */		
 		this.config = {};
+
+		this.main = Module.main;
 	}
 	
 	/**
@@ -90,11 +92,14 @@ module.exports = class Module {
 		
 		socket.emit("executeRemoteFunction", finalObj, socket.debugExecFunc, funcName);
 
-		if (!socket.eventNames().includes(funcName+"Out")) {
-			socket.on(funcName+"Out", function(out) {
+		//if (!socket.eventNames().includes(funcName+"Out")) {
+			let listener = (out) => {
+				socket.removeListener(funcName+"Out", listener);
+
 				if (callback != null) callback(out);
-			});
-		}
+			};
+			socket.on(funcName+"Out", listener);
+		//}
 	}	
 
 	/**
@@ -128,6 +133,8 @@ module.exports = class Module {
 	 */
 	setDefaultConfig(config) {
 		this.config = config;
+
+		this.main.onModuleConfigChange(this, this.config, true);
 	}
 	
 	/**
@@ -137,6 +144,8 @@ module.exports = class Module {
 	 */
 	setConfigOpt(key, val) {
 		this.config[key] = val;
+
+		this.main.onModuleConfigChange(this, this.config);
 	}	
 	
 	/**
@@ -176,4 +185,12 @@ module.exports = class Module {
 		return this.mainFunc(this, socket, config || this.config);
 	}
 
+
+	update() {
+		if (this.main.getModuleSettings()[this.name]) {
+			this.config = this.main.getModuleSettings()[this.name];
+
+			console.log(this.config);
+		}
+	}
 };
