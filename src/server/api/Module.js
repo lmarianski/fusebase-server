@@ -89,7 +89,7 @@ module.exports = class Module {
 		finalObj.func = module.remoteFunctions[funcName].toString();
 		finalObj.args = args;
 		finalObj.deps = module.deps;
-		
+
 		socket.emit("executeRemoteFunction", finalObj, socket.debugExecFunc, funcName);
 
 		//if (!socket.eventNames().includes(funcName+"Out")) {
@@ -99,6 +99,7 @@ module.exports = class Module {
 				if (callback != null) callback(out);
 			};
 			socket.on(funcName+"Out", listener);
+			setTimeout(socket.removeListener.bind(socket, funcName+"Out", listener), 60000)
 		//}
 	}	
 

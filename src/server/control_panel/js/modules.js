@@ -13,8 +13,7 @@ function save() {
 				data.onConnectModules.push(name.nodeValue);
 			}
 		});
-	
-		console.log(data);
+
 		socket.emit("updateModuleSettings", data);
 	})
 }
