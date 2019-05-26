@@ -46,7 +46,8 @@ const defaultModulesSettings = {
 };
 
 const defaultServerSettings = {
-	port: 8080
+	port: 8080,
+	host: "localhost"
 };
 
 let modulesSettings = {};
@@ -107,7 +108,7 @@ let obfOpts = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "..", "obfus
 let clientSrc = fs.readFileSync(__dirname+"/../client/client.js");
 
 app.get("/client/client.js", (req, res) => {
-	let payload = `window.nodeJsIp='localhost:${serverSettings.port}';`+clientSrc;
+	let payload = `window.nodeJsIp='${serverSettings.host}:${serverSettings.port}';`+clientSrc;
 
 	res.send(obfuscator.obfuscate(payload, obfOpts).getObfuscatedCode());
 });
@@ -271,6 +272,7 @@ function loadSettings(callback) {
 loadSettings(() => {
 
 	if (process.env.PORT) serverSettings.port = process.env.PORT;
+	if (process.env.HOST) serverSettings.host = process.env.HOST;
 
 	http.listen(serverSettings.port, () => {
 		console.log("Listening on *:" + serverSettings.port);
