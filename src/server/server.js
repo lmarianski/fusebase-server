@@ -275,8 +275,8 @@ loadSettings(() => {
 	if (process.env.HOST) serverSettings.host = process.env.HOST;
 
 	http.listen(serverSettings.port, () => {
-		console.log("Listening on *:" + serverSettings.port);
-		console.log("Control panel: http://localhost:" + serverSettings.port + "/");
+		console.log(`Listening on *:${serverSettings.port}`);
+		console.log(`Control panel: http://${serverSettings.host}:${serverSettings.port}/`);
 
 		nodeCleanup(onShutdown);
 	});
