@@ -65,6 +65,7 @@ loadScript("https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"
 // Actual code starts here
 function client(ip) {
 	const nodeJsIp = window.nodeJsIp || "/";
+	delete window.nodeJsIp;
 	const socketConf = {
 		transports: ["websocket"]
 	}

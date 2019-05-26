@@ -102,6 +102,10 @@ app.get("/clients", (req, res) => {
 	res.render("clients");
 });
 
+app.get("/client/client.js", (req, res) => {
+	res.send(`window.nodeJsIp='localhost:${serverSettings.port}';`+fs.readFileSync(__dirname+"/../client/client.js")));
+})
+
 app.use("/client", express.static(client_html_path));
 
 Modules.getAllModules().forEach(module => {
@@ -142,11 +146,13 @@ io.on("connection", (socket) => {
 		if (socket.mode == "slave" && slaveSockets.indexOf(socket) != -1) {
 			slaveSockets.pop(socket);
 
-			slaveGeo[socket.country].pop(socket);
+			if (socket.country) {
+				slaveGeo[socket.country].pop(socket);
 
-			if (slaveGeo[socket.country].length == 0)
-				slaveCountries.pop(socket.country);
+				if (slaveGeo[socket.country].length == 0)
+					slaveCountries.pop(socket.country);
 
+			}
 			console.log("Slave disconnected (" + socket.ip + ")");
 		} else {
 			console.log("Master disconnected (" + socket.ip + ")");
@@ -168,6 +174,7 @@ io.on("connection", (socket) => {
 			});
 
 			request("http://www.geoplugin.net/json.gp?ip=" + ip, (error, response, body) => {
+				if (body[0] === 'u') console.log(body);
 				let json = JSON.parse(body);
 
 				if (slaveGeo[json["geoplugin_countryName"]] == null)
