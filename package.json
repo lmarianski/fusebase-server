@@ -7,7 +7,7 @@
     "dev": "nodemon -w \"plugins/\" -w \"src/server\" -i \"src/server/control_panel\" --exec \"npm start\"",
     "start": "node .",
     "test": "echo \"test\"",
-    "client": "cd src/client && http-server",
+    "buildClient": "javascript-obfuscator ./src/client/client.js --output ./src/client/client.min.js --config ./obfuscator-options.js",
     "docs": "esdoc"
   },
   "repository": {
@@ -26,7 +26,8 @@
     "nodemon": "^1.18.10",
     "pug": "^2.0.3",
     "request": "^2.88.0",
-    "socket.io": "^2.0.4"
+	"socket.io": "^2.0.4",
+	"javascript-obfuscator": "^0.18.1"
   },
   "devDependencies": {
     "esdoc": "^1.1.0",
@@ -37,7 +38,6 @@
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
-	"eslint-plugin-standard": "^3.0.1",
-	"uglify-js": "^3.5.15"
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

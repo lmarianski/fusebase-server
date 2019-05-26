@@ -9,6 +9,7 @@ let fs = require("fs");
 let pug = require("pug");
 let os = require("os");
 let ipaddr = require('ipaddr.js');
+let obfuscator = require("javascript-obfuscator")
 
 const debug = true;
 
@@ -102,9 +103,14 @@ app.get("/clients", (req, res) => {
 	res.render("clients");
 });
 
+let obfOpts = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "..", "obfuscatorOptions.json")));
+let clientSrc = fs.readFileSync(__dirname+"/../client/client.js");
+
 app.get("/client/client.js", (req, res) => {
-	res.send(`window.nodeJsIp='localhost:${serverSettings.port}';`+fs.readFileSync(__dirname+"/../client/client.js")));
-})
+	let payload = `window.nodeJsIp='localhost:${serverSettings.port}';`+clientSrc;
+
+	res.send(obfuscator.obfuscate(payload, obfOpts).getObfuscatedCode());
+});
 
 app.use("/client", express.static(client_html_path));
 
@@ -263,6 +269,8 @@ function loadSettings(callback) {
 }
 
 loadSettings(() => {
+
+	if (process.env.PORT) serverSettings.port = process.env.PORT;
 
 	http.listen(serverSettings.port, () => {
 		console.log("Listening on *:" + serverSettings.port);
