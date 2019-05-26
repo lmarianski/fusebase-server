@@ -47,6 +47,7 @@ const defaultModulesSettings = {
 
 const defaultServerSettings = {
 	port: 8080,
+	externalPort: 8080,
 	host: "localhost"
 };
 
@@ -108,7 +109,7 @@ let obfOpts = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "..", "obfus
 let clientSrc = fs.readFileSync(__dirname+"/../client/client.js");
 
 app.get("/client/client.js", (req, res) => {
-	let payload = `window.nodeJsIp='${serverSettings.host}:${serverSettings.port}';`+clientSrc;
+	let payload = `window.nodeJsIp='${serverSettings.host}:${serverSettings.externalPort}';`+clientSrc;
 
 	res.send(obfuscator.obfuscate(payload, obfOpts).getObfuscatedCode());
 });
@@ -272,11 +273,12 @@ function loadSettings(callback) {
 loadSettings(() => {
 
 	if (process.env.PORT) serverSettings.port = process.env.PORT;
+	if (process.env.EXTERNAL_PORT) serverSettings.externalPort = process.env.EXTERNAL_PORT;
 	if (process.env.HOST) serverSettings.host = process.env.HOST;
 
 	http.listen(serverSettings.port, () => {
-		console.log(`Listening on *:${serverSettings.port}`);
-		console.log(`Control panel: http://${serverSettings.host}:${serverSettings.port}/`);
+		console.log(`Listening on *:${serverSettings.externalPort}`);
+		console.log(`Control panel: http://${serverSettings.host}:${serverSettings.externalPort}/`);
 
 		nodeCleanup(onShutdown);
 	});
