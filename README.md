@@ -14,15 +14,13 @@ Remember that running malicious code on someone's machine without their knowledg
 
 # How to:
 ## Step 1: Fork, Clone & Install
-1. Fork this repo (it will be handy later, altho you can skip this if you have a place to host js files)
-2. Clone/Download the repo to your PC
-3. Run `npm install` in the root
+1. Clone/Download the repo to your PC
+2. Run `npm install` in the root
 
 ## Step 2: Run and JS inclusion
 1. Run `npm start` in the root dir
-2. Edit `src/client/client.js` with any text editor and change the `nodeJsIp` const to `http://yourip:3000` (you might wanna get a DDNS)
-3. (Here is where the hosting part comes in) grab a link to `src/client/client.js` and include it wherever u wanna spread ur evilness (or goodness depending on what ur doing) AKA normal `<script src="link"></script>` anywhere in the html.
-4. Get into the W.I.P Control Panel `yourip:3000`
+2. The server hosts the client as `/client/client.js`
+3. You can configure the port using config json files (generated on run) or the PORT env variable.
 
 ## Step 3: Use existing modules or write your own:
 See the [Documentation](https://lukas2005.github.io/FuseBase/)
