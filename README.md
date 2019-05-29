@@ -13,7 +13,7 @@ Remember that running malicious code on someone's machine without their knowledg
 1. Latest Nodejs
 
 # How to:
-## Step 1: Fork, Clone & Install
+## Step 1: Clone & Install
 1. Clone/Download the repo to your PC
 2. Run `npm install` in the root
 
