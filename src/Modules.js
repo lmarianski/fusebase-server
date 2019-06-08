@@ -3,8 +3,7 @@ let path = require("path");
 
 const Module = require("./api/Module");
 
-const pluginFolder = "./plugins/";
-const pluginFolderRelative = "../../plugins/";
+const pluginFolder = path.join(__dirname, "..", "plugins");
 
 let modules = [];
 let modulesDict = {};
@@ -19,25 +18,32 @@ module.exports = {
 	importModules(obj) {
 		main = obj;
 
+		if (!fs.existsSync(pluginFolder)) fs.mkdirSync(pluginFolder);
+
 		fs.readdirSync(pluginFolder).forEach(file => {
 
 			let module = new Module();
 			module.main = main;
 			
-			if (!fs.lstatSync(pluginFolder+file).isDirectory()) {
+			let filePath = path.join(pluginFolder, file);
+
+			if (!fs.lstatSync(filePath).isDirectory()) {
 				if (file.match(".*\\.js")) {
 					module.setName(file.substr(0, file.length-3));
 
-					module = require(pluginFolderRelative+file)(module);
+					module = require(filePath)(module);
 				}
 			} else {
-				fs.readdirSync(pluginFolder+file).forEach(dirFile => {
+				fs.readdirSync(filePath).forEach(dirFile => {
+
+					let dirFilePath = path.join(filePath, dirFile);
+
 					if (dirFile === file+".js" || dirFile === "main.js") {
 						module.setName(file);
 
-						module = require(pluginFolderRelative+file+"/"+dirFile)(module);
+						module = require(dirFilePath)(module);
 					} else if (dirFile.match("widget[0-9]\\.pug")) {
-						module.widgetPaths.push(pluginFolder+file+"/"+dirFile);
+						module.widgetPaths.push(dirFilePath);
 					}
 				});
 			}

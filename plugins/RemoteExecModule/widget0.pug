@@ -4,7 +4,7 @@ block widget
     script(src="/"+module.name+"/widget.js")
     span(class="centerX") #{module.name}:
     div(style="clear: both;")
-    textarea(id="RemoteExecModule_Text", cols="25", rows="10", onclick="let dom = document.getElementById(\"RemoteExecModule_Text\"); dom.innerHTML=\"\"; dom.onclick = null;") 
+    textarea(id=module.name+"_Text", cols="25", rows="10", onclick="let dom = document.getElementById(\""+module.name+"_Text\"); dom.value=\"\"; dom.onclick=null;") 
         = "Type JavaScript to execute here [It will get executed on all slave clients]"
     div(style="clear: both;")
     input(type="button", value="Start", onclick="RemoteExecModule_Send();", class="centerX")

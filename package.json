@@ -1,43 +1,29 @@
 {
-  "name": "FuseBase",
-  "version": "0.0.1",
+  "name": "fusebase-server",
+  "version": "1.0.0",
   "description": "A C&C server made in nodejs",
-  "main": "src/server/server.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon -w \"plugins/\" -w \"src/server\" -i \"src/server/control_panel\" --exec \"npm start\"",
     "start": "node .",
-    "test": "echo \"test\"",
-    "buildClient": "javascript-obfuscator ./src/client/client.js --output ./src/client/client.min.js --config ./obfuscator-options.js",
-    "docs": "esdoc"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lukas2005/FuseBase.git"
+    "url": "https://github.com/lukas2005/fusebase-server.git"
   },
-  "bugs": "https://github.com/lukas2005/FuseBase/issues",
+  "bugs": "https://github.com/lukas2005/fusebase-server/issues",
   "author": "lukas2005",
   "license": "GPL-3.0",
   "dependencies": {
-    "express": "^4.16.2",
-    "genversion": "^2.0.1",
+    "express": "^4.17.1",
     "ipaddr.js": "^1.9.0",
-    "mysql": "^2.16.0",
+    "javascript-obfuscator": "^0.18.1",
     "node-cleanup": "^2.1.2",
-    "nodemon": "^1.18.10",
-    "pug": "^2.0.3",
+    "nosql": "^6.1.0",
     "request": "^2.88.0",
-	"socket.io": "^2.0.4",
-	"javascript-obfuscator": "^0.18.1"
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
-    "esdoc": "^1.1.0",
-    "esdoc-integrate-manual-plugin": "^1.0.0",
-    "esdoc-node": "^1.0.3",
-    "esdoc-standard-plugin": "^1.0.0",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "nodemon": "^1.19.1"
   }
 }

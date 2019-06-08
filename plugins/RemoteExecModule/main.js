@@ -10,7 +10,7 @@ module.exports = (M) => {
 	});
 	
 	M.setAutoRunStatus(false);
-	
+
 	return M;
 };
 

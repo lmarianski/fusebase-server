@@ -1,4 +1,4 @@
-/**
+/*
  * Export the module
  */
 module.exports = class Module {
@@ -54,6 +54,8 @@ module.exports = class Module {
 		 */		
 		this.config = {};
 
+		this.platform = "any";
+
 		this.main = Module.main;
 	}
 	
@@ -65,6 +67,10 @@ module.exports = class Module {
 		this.name = name;
 	}
 	
+	setPlatform(platform) {
+		this.platform = platform;
+	}
+
 	/**
 	 * Adds a new remote function to this module
 	 * @param {string} name Name of the remote function
