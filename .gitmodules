@@ -1,0 +1,3 @@
+[submodule "src/control_panel"]
+	path = src/control_panel
+	url = https://github.com/lukas2005/fusebase-controlpanel.git

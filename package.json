@@ -4,8 +4,11 @@
   "description": "A C&C server made in nodejs",
   "main": "src/index.js",
   "scripts": {
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"start": "npm run build && node .",
+	"dev": "nodemon --exec \"cd ./src/control_panel && npm run buildDev && cd ../.. && node .\" -i *dist* -i modulesSettings.json -i serverSettings.json",
+	"test": "echo \"Error: no test specified\" && exit 1",
+	"pullModules": "git submodule update --remote",
+	"build": "cd ./src/control_panel && npm run build"
   },
   "repository": {
     "type": "git",
