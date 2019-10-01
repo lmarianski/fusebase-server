@@ -4,11 +4,11 @@
   "description": "A C&C server made in nodejs",
   "main": "src/index.js",
   "scripts": {
-	"start": "npm run build && node .",
-	"dev": "nodemon --exec \"cd ./src/control_panel && npm run buildDev && cd ../.. && node .\" -i *dist* -i modulesSettings.json -i serverSettings.json",
-	"test": "echo \"Error: no test specified\" && exit 1",
-	"pullModules": "git submodule update --remote",
-	"build": "cd ./src/control_panel && npm run build"
+    "start": "node .",
+    "dev": "nodemon --exec \"node .\" -i *dist* -i modulesSettings.json -i serverSettings.json",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pullModules": "git submodule update --remote",
+    "build": "cd ./src/control_panel && npm run build"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,8 @@
     "node-cleanup": "^2.1.2",
     "nosql": "^6.1.0",
     "request": "^2.88.0",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
