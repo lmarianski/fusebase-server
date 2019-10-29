@@ -60,6 +60,6 @@ typings/
 # VS Code
 .vscode
 
-/modulesSettings.json
+/moduleSettings.json
 /serverSettings.json
 /version.js

