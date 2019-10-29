@@ -8,7 +8,7 @@
     "dev": "nodemon --exec \"node .\" -i *dist* -i moduleSettings.json -i serverSettings.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pullModules": "git submodule update --remote",
-    "build": "cd ./src/control_panel && npm i && npm run buildDev"
+    "build": "cd ./node_modules/fusebase-controlpanel && npm run buildDev"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,8 @@
   "license": "GPL-3.0",
   "dependencies": {
     "express": "^4.17.1",
+    "fusebase-client": "git+https://github.com/lukas2005/fusebase-client.git",
+    "fusebase-controlpanel": "git+https://github.com/lukas2005/fusebase-controlpanel.git",
     "ipaddr.js": "^1.9.0",
     "javascript-obfuscator": "^0.18.1",
     "node-cleanup": "^2.1.2",

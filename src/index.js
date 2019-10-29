@@ -15,8 +15,8 @@ let app = express();
 let http = require("http").createServer(app);
 let io = require("socket.io")(http);
 
-let control_panel_path = path.join(__dirname, "control_panel", "dist");
-let client_path = path.join(__dirname, "client", "src");
+let control_panel_path = path.join(__dirname, "..", "node_modules", "fusebase-controlpanel");
+let client_path = path.join(__dirname, "..", "node_modules", "fusebase-client", "src");
 
 const package = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "package.json")));
 const version = package.version;
