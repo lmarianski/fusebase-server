@@ -63,3 +63,5 @@ typings/
 /moduleSettings.json
 /serverSettings.json
 /version.js
+
+*.nosql
