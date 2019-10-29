@@ -64,4 +64,3 @@ typings/
 /serverSettings.json
 /version.js
 
-*.nosql
