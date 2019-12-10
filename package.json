@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A C&C server made in nodejs",
   "main": "src/index.js",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "start": "node .",
     "dev": "nodemon --exec \"node .\" -i *dist* -i moduleSettings.json -i serverSettings.json",
