@@ -11,7 +11,7 @@
     "dev": "nodemon --exec \"node .\" -i *dist* -i moduleSettings.json -i serverSettings.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pullModules": "git submodule update --remote",
-    "preinstall": "if [ -z ${NPM_AUTH_TOKEN+x} ]; then echo 'var is unset'; else echo 'registry=https://npm.pkg.github.com/lukas2005' > .npmrc; echo //npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN} >> .npmrc; fi; cat .npmrc"
+    "preinstall": "cat .npmrc"
   },
   "repository": {
     "type": "git",
