@@ -15,7 +15,7 @@ let app = express();
 let http = require("http").createServer(app);
 let io = require("socket.io")(http);
 
-let control_panel_path = path.join(__dirname, "..", "node_modules", "@lukas2005", "fusebase-controlpanel", "dist");
+let control_panel_path = path.join(__dirname, "..", "node_modules", "@fusebase", "controlpanel", "dist");
 console.log(control_panel_path)
 let client_path = path.join(__dirname, "..", "node_modules", "fusebase-client", "src");
 
