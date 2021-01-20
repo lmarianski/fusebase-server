@@ -28,7 +28,7 @@
     "node-cleanup": "^2.1.2",
     "nosql": "^6.1.0",
     "request": "^2.88.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "vuex": "^3.1.2"
   },
   "devDependencies": {
